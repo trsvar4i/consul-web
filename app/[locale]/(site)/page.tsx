@@ -232,13 +232,12 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 <Link href={`/guides/${g.slug}`} className="group block h-full overflow-hidden rounded-block border border-gray-200 transition-colors hover:border-graphite-900">
                   <div className="relative h-48 overflow-hidden">
                     <GuideCover guide={g} className="transition-transform duration-700 group-hover:scale-[1.04]" />
-                    <span className="absolute left-4 top-4 rounded-full bg-white px-2.5 py-0.5 text-xs font-medium text-gray-700 shadow-soft">{g.tag[locale]}</span>
                     <span className="num absolute bottom-3 right-4 text-xs font-semibold text-gray-500">0{i + 1}</span>
                   </div>
                   <div className="p-6">
                     <h3 className="text-lg font-semibold leading-snug group-hover:underline group-hover:decoration-brand-500 group-hover:underline-offset-4">{g.title[locale]}</h3>
                     <p className="mt-2 text-sm text-gray-700">{g.description[locale]}</p>
-                    <p className="mt-4 text-xs font-medium uppercase tracking-[0.14em] text-gray-700">{tg("readMin", { n: g.readMinutes })}</p>
+                    <p className="mt-4 flex flex-wrap items-center gap-2 text-sm text-gray-700"><span className="rounded-full bg-mist px-2.5 py-1 text-xs font-medium text-graphite-900">{g.tag[locale]}</span>{tg("readMin", { n: g.readMinutes })}</p>
                   </div>
                 </Link>
               </Reveal>

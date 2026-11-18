@@ -4,7 +4,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { generateGuide, listUserGuides, type UserGuide } from "@/lib/api";
-import { formatDateFull } from "@/lib/format";
 import type { Locale } from "@/lib/types";
 import { Spotlight } from "../fx/fx";
 import { Sheet } from "../ui/sheet";
@@ -28,6 +27,7 @@ const TOPIC_BG: Record<string, string> = { debt: "bg-warning-50", credit: "bg-mi
 /** Карточка-кнопка «Создать гайд с ассистентом» + гайды, созданные на этом устройстве. */
 export function CreateGuide() {
   const t = useTranslations("myGuides");
+  const tg = useTranslations("guides");
   const locale = useLocale() as Locale;
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -81,15 +81,12 @@ export function CreateGuide() {
       {mine.map((g) => (
         <Link key={g.id} href={`/guides/my?id=${g.id}`} className="group flex flex-col overflow-hidden rounded-card border border-gray-200 hover:border-graphite-900">
           <div className={cn("relative flex h-48 items-end p-5", TOPIC_BG[g.topic] ?? "bg-mist")}>
-            <span className="absolute left-4 top-4 inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-0.5 text-xs font-medium text-graphite-900 shadow-soft">
-              <Sparkles size={12} className="text-brand-500" aria-hidden /> {t("mine")} · {g.tag}
-            </span>
             <span className={cn("text-[64px] font-bold leading-none tracking-tighter", g.topic === "cash" ? "text-white/15" : "text-graphite-900/10")} aria-hidden>Ai</span>
           </div>
           <div className="flex flex-1 flex-col p-5">
             <h2 className="text-lg font-semibold leading-snug">{g.title}</h2>
             <p className="mt-2 flex-1 text-[15px] text-gray-700">{g.description}</p>
-            <p className="mt-4 text-sm text-gray-700">{formatDateFull(g.createdAt.slice(0, 10), locale)} · {t("saved")}</p>
+            <p className="mt-4 flex flex-wrap items-center gap-2 text-sm text-gray-700"><span className="rounded-full bg-mist px-2.5 py-1 text-xs font-medium text-graphite-900">{g.tag}</span><span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-600"><Sparkles size={12} aria-hidden /> {t("mine")}</span>{tg("readMin", { n: g.readMinutes })}</p>
           </div>
         </Link>
       ))}
