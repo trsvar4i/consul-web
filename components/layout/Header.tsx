@@ -11,6 +11,8 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 const NAV = [
   { href: "/tools", key: "tools" },
   { href: "/guides", key: "guides" },
+  { href: "/chat", key: "assistant" },
+  { href: "/app", key: "app" },
 ] as const;
 
 export function Header() {

@@ -32,7 +32,9 @@
     "home": "Bosh sahifa",
     "openMenu": "Menyuni ochish",
     "closeMenu": "Menyuni yopish",
-    "skip": "Asosiy qismga oʻtish"
+    "skip": "Asosiy qismga oʻtish",
+    "assistant": "Yordamchi",
+    "app": "Ilova"
   },
   "lang": {
     "label": "Til",
@@ -137,7 +139,9 @@
     "faq5a": "Bu 01.06.2026 qoidalari boʻyicha taxminiy hisob. Rejimni tanlashdan oldin buxgalter bilan maslahatlashing.",
     "finalTitle": "Bepul boshlang",
     "finalText": "Demo rejim 10 soniyada: haqiqiy biznes misolida panelni koʻring.",
-    "finalCta": "Bepul boshlash"
+    "finalCta": "Bepul boshlash",
+    "faq6q": "Telefondan foydalansa boʻladimi?",
+    "faq6a": "Ha. Consul birinchi navbatda telefon uchun qilingan: katta tugmalar, bir jumla bilan kiritish va chek suratlari. Kompyuter shart emas."
   },
   "tools": {
     "h1": "Bepul kalkulyatorlar",
@@ -734,7 +738,7 @@
     "toolCredit": "oyiga 2 643 555 dan",
     "toolTax": "3 rejim yonma-yon",
     "toolMarkup": "narx va marja",
-    "finalNote": "Karta va roʻyxatdan oʻtishsiz. Demo maʼlumotlarni istalgan vaqtda tiklash mumkin.",
+    "finalNote": "Uch obuna: «Start» — pulni koʻrish, «Biznes» — yordamchi bilan qaror, «Bank» — kreditga tayyorlanish.",
     "f1mLabel": "Oylik tushum",
     "f1mValue": "51 200 000",
     "f2mLabel": "15-sanagacha soliq",
@@ -745,7 +749,7 @@
     "f4mValue": "4 000 000",
     "f5mLabel": "Savdosiz tushumlar",
     "f5mValue": "8 ta",
-    "sec1": "Muammo",
+    "sec1": "Hisob",
     "sec3": "Pul",
     "sec4": "Qanday ishlaydi",
     "sec5": "Vositalar",
@@ -765,6 +769,116 @@
     ],
     "heroKicker": "Telefondagi moliyaviy direktor",
     "manifesto": "Biz buxgalteriya ham, kassa ham emasmiz. Biz — tadbirkor ertalab bilishi kerak boʻlgan oʻsha raqammiz.",
-    "manifestoBy": "Consul tamoyili"
+    "manifestoBy": "Consul tamoyili",
+    "faqSide": "Javob topmadingizmi? Yordamchidan soʻrang — biznesingiz raqamlarida javob beradi.",
+    "faqAsk": "Yordamchidan soʻrash",
+    "pause": "Pauza",
+    "play": "Davom etish"
+  },
+  "plans": {
+    "h1": "Obunani tanlang",
+    "sub": "Uch obuna — Consulning uch roli: pulni koʻrish, yordamchi bilan qaror qilish va bankka tayyorlanish.",
+    "note": "Demo: narxlar shartli, toʻlov yechilmaydi. Obunani sozlamalarda almashtirish mumkin.",
+    "popular": "Ommabop",
+    "current": "Joriy",
+    "choosing": "Ulanmoqda…",
+    "perMonth": "soʻm / oy",
+    "forever": "doimiy",
+    "start_name": "Start",
+    "start_price": "0",
+    "start_role": "Pulni koʻrish",
+    "start_f": [
+      "Har kuni «Xavfsiz sarflash mumkin»",
+      "Qoʻlda hisob va CSV importi",
+      "Toʻlovlar haqida ogohlantirish",
+      "Kalkulyatorlar va qoʻllanmalar"
+    ],
+    "start_cta": "Bepul boshlash",
+    "business_name": "Biznes",
+    "business_price": "99 000",
+    "business_role": "Yordamchi bilan qaror",
+    "business_f": [
+      "«Start»dagi hammasi",
+      "Cheklovsiz yordamchi",
+      "PDF, Word va chek suratlari importi",
+      "Stsenariyli kredit va SI bahosi",
+      "Tushumlarni solishtirish"
+    ],
+    "business_cta": "«Biznes»ni tanlash",
+    "bank_name": "Bank",
+    "bank_price": "249 000",
+    "bank_role": "Kreditga tayyorlanish",
+    "bank_f": [
+      "«Biznes»dagi hammasi",
+      "Biznes pasporti va baho",
+      "Bank uchun PDF biznes-reja",
+      "Kredit menejeri uchun xulosa",
+      "Ustuvor yordam"
+    ],
+    "bank_cta": "«Bank»ni tanlash",
+    "settingsTitle": "Obuna",
+    "change": "Obunani almashtirish"
+  },
+  "notebook": {
+    "title": "Daftar «taxminan» deydi. Consul — aniq.",
+    "sub": "Tadbirkor daftarida yoki telefon eslatmalarida yozadigan oʻsha yozuvlar. Consul ularni asosiy savolga javobga aylantiradi.",
+    "tabNote": "Daftardagidek",
+    "tabConsul": "Consuldagidek",
+    "lines": [
+      "Ijara 3 mln — 5-gacha!!",
+      "Yordamchiga 2,5 — 10-sana",
+      "Baraka qarzga oldi 2,6 (qaytaradimi?)",
+      "Soliq ~500 — 15-sana",
+      "Mayiz 60 kg — 3,4 mln",
+      "Kassada 11,5 chamasi"
+    ],
+    "q": "Qancha sarflash mumkin?",
+    "qNote": "«xullas… besh million chamasi?»",
+    "rows": [
+      "Hozirgi pul",
+      "Ijara · 5-dekabr",
+      "Yordamchi · 10-dekabr",
+      "Soliq va aloqa · 15–20-dekabr",
+      "Kutilmagan holatlar uchun zaxira"
+    ],
+    "total": "Xavfsiz sarflash mumkin",
+    "debt": "Xaridorlar qarzi: 2 600 000 — «Baraka»ga eslatish"
+  },
+  "myGuides": {
+    "createTitle": "Yordamchi bilan qoʻllanma yaratish",
+    "createText": "Muammoingizni yozing — Consul hisob-kitob, chek-list va oʻzini tekshirish bilan qoʻllanma tuzadi.",
+    "createBtn": "Yaratish",
+    "dialogTitle": "Yangi qoʻllanma",
+    "label": "Sizni nima bezovta qilyapti?",
+    "placeholder": "Masalan: yetkazib beruvchidan tovarni qarzga olaman va aslida qancha ishlab topayotganimni tushunmayman",
+    "examples": [
+      "Xaridorlar qarzni qaytarmayapti",
+      "Kengayish uchun kredit olishni bilmayman",
+      "Qaysi soliq menga foydali",
+      "Oy oxirida doim pul yoʻq",
+      "Tovarga qanday narx qoʻyish kerak"
+    ],
+    "generate": "Qoʻllanma tuzish",
+    "steps": [
+      "Vazifani oʻqiyapman",
+      "Hisob-kitoblarni tanlayapman",
+      "Topshiriqlarni yigʻyapman",
+      "Raqamlarni tekshiryapman"
+    ],
+    "mine": "Mening qoʻllanmam",
+    "saved": "Shu qurilmada saqlangan",
+    "delete": "Qoʻllanmani oʻchirish",
+    "notFound": "Bu qurilmada qoʻllanma topilmadi.",
+    "back": "Barcha qoʻllanmalar",
+    "problem": "Sizning soʻrovingiz",
+    "checklist": "Chek-list",
+    "quiz": "Oʻzingizni tekshiring",
+    "correct": "Toʻgʻri",
+    "wrong": "Unchalik emas",
+    "whatIf": "Agar…",
+    "tool": "Oʻz raqamlaringizda hisoblang",
+    "done": "{total} tadan {done} tasi bajarildi",
+    "error": "Qoʻllanmani tuzib boʻlmadi. Yana urinib koʻring.",
+    "short": "Muammoni biroz batafsilroq yozing — kamida bir-ikki soʻz."
   }
 }

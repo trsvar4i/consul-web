@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/primitives";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PageCtx } from "@/components/layout/PageCtx";
 import { GuideCover } from "@/components/brand/GuideCover";
+import { CreateGuide } from "@/components/guides/CreateGuide";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/guides">) {
   const { locale } = await params;
@@ -28,6 +29,7 @@ export default async function GuidesPage({ params }: PageProps<"/[locale]/guides
       <PageCtx page="other" title={t("h1")} />
       <PageHeader title={t("h1")} intro={t("intro")} crumbs={[{ href: "/", label: nav("home") }]} />
       <Container className="grid gap-5 py-10 md:grid-cols-2 lg:grid-cols-3 lg:py-16">
+        <CreateGuide />
         {guides.map((g) => {
           return (
             <Link key={g.slug} href={`/guides/${g.slug}`} className="group flex flex-col overflow-hidden rounded-card border border-gray-200 hover:border-graphite-900">

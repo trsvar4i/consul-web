@@ -11,7 +11,10 @@ import { Waterfall } from "@/components/home/Waterfall";
 import { MarkLarge } from "@/components/brand/Logo";
 import { Magnetic, Marquee, Reveal, Scramble, SectionMark, Spotlight } from "@/components/fx/fx";
 import { PageCtx } from "@/components/layout/PageCtx";
+import { AskButton } from "@/components/assistant/WhyButton";
 import { GlowGrid } from "@/components/fx/GlowGrid";
+import { CreditCta } from "@/components/home/CreditCta";
+import { NotebookSwitch } from "@/components/home/NotebookSwitch";
 import { GuideCover } from "@/components/brand/GuideCover";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]">) {
@@ -30,13 +33,14 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const locale = l as Locale;
   const t = await getTranslations("home");
   const L = await getTranslations("landing");
+  const N = await getTranslations("notebook");
   const tt = await getTranslations("tools");
   const tg = await getTranslations("guides");
   const pages = await getTranslations("pages");
 
   const dash = await getDashboard(undefined, locale);
   const guides = (await listGuides()).slice(0, 3);
-  const faq = [1, 2, 3, 4, 5].map((i) => ({ q: t(`faq${i}q`), a: t(`faq${i}a`) }));
+  const faq = [1, 2, 3, 4, 5, 6].map((i) => ({ q: t(`faq${i}q`), a: t(`faq${i}a`) }));
   const marquee = L.raw("marquee") as string[];
 
   return (
@@ -63,10 +67,10 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-ondark">{t("sub")}</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Magnetic>
-                <ButtonLink href="/login" size="lg" className="h-14 rounded-full px-7 text-base">{t("ctaCheck")} <ArrowRight size={18} aria-hidden /></ButtonLink>
-              </Magnetic>
-              <ButtonLink href="/tools/credit" variant="onDark" size="lg" className="h-14 rounded-full px-7 text-base">{t("ctaCredit")}</ButtonLink>
+              <ButtonLink href="/login" size="lg" className="group h-14 rounded-full px-7 text-base">
+                {t("ctaCheck")} <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
+              </ButtonLink>
+              <CreditCta label={t("ctaCredit")} />
             </div>
             <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ondark">
               {["check1", "check2", "check3"].map((k) => (
@@ -91,19 +95,16 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         </Container>
       </section>
 
-      {/* ───────── 01 БОЛЬ ───────── */}
+      {/* ───────── 01 ТЕТРАДЬ → CONSUL ───────── */}
       <section className="py-20 lg:py-28">
         <Container>
           <SectionMark n="01" label={L("sec1")} />
-          <H2 className="mt-8 max-w-3xl">{t("painTitle")}</H2>
-          <div className="mt-12 grid border-t border-graphite-900 md:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <Reveal key={i} delay={i * 120} className={`py-8 md:py-10 ${i > 1 ? "border-t border-gray-200 md:border-l md:border-t-0 md:pl-8" : ""} md:pr-8`}>
-                <p className="num text-sm text-brand-500">0{i}</p>
-                <blockquote className="mt-4 text-2xl font-semibold leading-[1.2] tracking-[-0.015em]">«{t(`pain${i}`)}»</blockquote>
-                <p className="mt-4 text-[15px] leading-relaxed text-gray-700">{t(`pain${i}Text`)}</p>
-              </Reveal>
-            ))}
+          <div className="mt-8 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-16">
+            <Reveal className="lg:sticky lg:top-28">
+              <H2>{N("title")}</H2>
+              <p className="mt-5 max-w-md text-lg leading-relaxed text-gray-700">{N("sub")}</p>
+            </Reveal>
+            <Reveal delay={120}><NotebookSwitch /></Reveal>
           </div>
         </Container>
       </section>
@@ -133,18 +134,6 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               ]} />
             </Reveal>
           </div>
-        </Container>
-      </section>
-
-      {/* ───────── МАНИФЕСТ ───────── */}
-      <section className="border-y border-gray-200 bg-mist py-16 lg:py-24">
-        <Container>
-          <Reveal>
-            <p className="max-w-5xl text-[26px] font-semibold leading-[1.15] tracking-[-0.02em] sm:text-[36px] lg:text-[48px]">
-              <span className="text-brand-500">«</span>{L("manifesto")}<span className="text-brand-500">»</span>
-            </p>
-            <p className="mt-6 text-sm font-medium uppercase tracking-[0.18em] text-gray-700">— {L("manifestoBy")}</p>
-          </Reveal>
         </Container>
       </section>
 
@@ -262,16 +251,23 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       <section className="bg-mist py-20 lg:py-28">
         <Container>
           <SectionMark n="08" label={L("sec9")} />
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_1.6fr]">
-            <H2>{t("faqTitle")}</H2>
-            <div className="border-t border-graphite-900">
+          <div className="mt-10 grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-16">
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <H2>{t("faqTitle")}</H2>
+              <p className="mt-5 max-w-sm text-[17px] leading-relaxed text-gray-700">{L("faqSide")}</p>
+              <AskButton className="mt-7 inline-flex h-12 items-center gap-2 rounded-full bg-graphite-900 px-6 font-medium text-white transition-colors hover:bg-graphite-800">
+                <MessageCircleQuestion size={18} aria-hidden /> {L("faqAsk")}
+              </AskButton>
+            </div>
+            <div className="divide-y divide-gray-200 border-y border-gray-200">
               {faq.map((f, i) => (
-                <details key={i} className="faq group border-b border-gray-200">
-                  <summary className="flex min-h-[72px] cursor-pointer list-none items-center justify-between gap-6 py-5 text-lg font-medium [&::-webkit-details-marker]:hidden">
-                    <span className="flex gap-4"><span className="num text-sm text-brand-500">0{i + 1}</span>{f.q}</span>
-                    <span className="grid size-9 shrink-0 place-items-center rounded-full border border-gray-200 text-xl leading-none transition-transform duration-300 group-open:rotate-45 group-open:border-graphite-900 group-open:bg-graphite-900 group-open:text-white" aria-hidden>+</span>
+                <details key={i} className="faq group">
+                  <summary className="grid min-h-[76px] cursor-pointer list-none grid-cols-[2.5rem_1fr_auto] items-center gap-3 py-5 [&::-webkit-details-marker]:hidden">
+                    <span className="num text-sm text-brand-500">0{i + 1}</span>
+                    <span className="text-[17px] font-medium leading-snug lg:text-lg">{f.q}</span>
+                    <span className="grid size-9 place-items-center rounded-full border border-gray-200 bg-white text-xl leading-none transition-[transform,background-color,color,border-color] duration-300 group-open:rotate-45 group-open:border-graphite-900 group-open:bg-graphite-900 group-open:text-white" aria-hidden>+</span>
                   </summary>
-                  <p className="max-w-2xl pb-6 pl-9 text-[15px] leading-relaxed text-gray-700">{f.a}</p>
+                  <p className="max-w-xl pb-6 pl-[3.25rem] pr-12 text-[15px] leading-relaxed text-gray-700">{f.a}</p>
                 </details>
               ))}
             </div>

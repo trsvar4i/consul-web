@@ -6,7 +6,7 @@ import {
   BookUser, FileText, GitCompareArrows, Globe, Landmark, LayoutDashboard, ListOrdered, LogOut, MessageCircle, MoreHorizontal, Plus, Settings, X,
 } from "lucide-react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { getBusiness, getSession, localizeBusiness, logout } from "@/lib/api";
+import { getBusiness, getPlan, getSession, localizeBusiness, logout } from "@/lib/api";
 import type { Locale } from "@/lib/types";
 import { useAssistant } from "@/lib/assistant-context";
 import type { Business, Transaction } from "@/lib/types";
@@ -55,6 +55,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     }
     if (s.isNew) {
       router.replace("/onboarding");
+      return;
+    }
+    // после входа — выбор подписки
+    if (!getPlan()) {
+      router.replace("/subscribe");
       return;
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect -- guard result

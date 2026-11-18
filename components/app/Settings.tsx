@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Plus, Trash2 } from "lucide-react";
-import { getBusiness, localizeBusiness, logout, resetAllData, saveBusiness } from "@/lib/api";
+import { getBusiness, getPlan, localizeBusiness, logout, resetAllData, saveBusiness } from "@/lib/api";
 import { useRouter } from "@/i18n/navigation";
 import type { Business, Locale, RecurringPayment } from "@/lib/types";
 import { MoneyInput } from "../brand/MoneyInput";
 import { LanguageSwitcher } from "../layout/LanguageSwitcher";
-import { Button, Card, Input, Label, Select, Skeleton } from "../ui/primitives";
+import { Button, ButtonLink, Card, Input, Label, Select, Skeleton } from "../ui/primitives";
 import { Sheet } from "../ui/sheet";
 import { useToast } from "../ui/toast";
 import { useApp } from "./AppShell";
@@ -16,6 +16,10 @@ export function Settings() {
   const t = useTranslations("settings");
   const ob = useTranslations("onboarding");
   const c = useTranslations("common");
+  const tp = useTranslations("plans");
+  const [plan, setPlan] = useState<string | null>(null);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- plan lives in localStorage
+  useEffect(() => setPlan(getPlan()), []);
   const router = useRouter();
   const locale = useLocale() as Locale;
   const toast = useToast();
@@ -67,6 +71,14 @@ export function Settings() {
           className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-brand-500 hover:underline">
           <Plus size={16} aria-hidden /> {c("add")}
         </button>
+      </Card>
+
+      <Card className="flex flex-wrap items-center justify-between gap-3 p-5 sm:p-6">
+        <div>
+          <h2 className="font-semibold">{tp("settingsTitle")}</h2>
+          <p className="mt-1 text-gray-700">{plan ? `${tp(`${plan}_name`)} · ${tp(`${plan}_role`)}` : "—"}</p>
+        </div>
+        <ButtonLink href="/subscribe" variant="secondary">{tp("change")}</ButtonLink>
       </Card>
 
       <Button size="lg" onClick={save}>{c("save")}</Button>

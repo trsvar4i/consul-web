@@ -78,7 +78,7 @@ export function Onboarding() {
             <CheckCircle2 size={48} className="mx-auto text-success" aria-hidden />
             <h1 className="mt-4 text-[28px] font-semibold">{t("doneTitle")}</h1>
             <p className="mt-2 text-gray-700">{t("doneText")}</p>
-            <Button size="lg" className="mt-6 w-full" onClick={() => router.push("/app")} autoFocus>{t("toPanel")}</Button>
+            <Button size="lg" className="mt-6 w-full" onClick={() => router.push("/subscribe")} autoFocus>{t("toPanel")}</Button>
           </div>
         ) : (
           <>

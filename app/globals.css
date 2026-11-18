@@ -71,15 +71,15 @@ input[type="range"] { accent-color: var(--color-brand-500); }
 }
 
 /* Markdown bodies (guides, assistant) */
-.prose-c h2 { font-size: 22px; font-weight: 600; margin: 32px 0 12px; scroll-margin-top: 90px; }
-.prose-c h3 { font-size: 18px; font-weight: 600; margin: 24px 0 8px; }
-.prose-c p { margin: 0 0 14px; line-height: 1.65; color: #22262C; }
-.prose-c ul, .prose-c ol { margin: 0 0 14px; padding-left: 22px; line-height: 1.65; }
-.prose-c ul { list-style: disc; }
-.prose-c ol { list-style: decimal; }
-.prose-c strong { font-weight: 600; }
-.prose-c table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-variant-numeric: tabular-nums; }
-.prose-c td, .prose-c th { border-bottom: 1px solid #D3D9E0; padding: 8px 6px; text-align: left; }
+.prose-c h2:not(.not-prose *) { font-size: 22px; font-weight: 600; margin: 32px 0 12px; scroll-margin-top: 90px; }
+.prose-c h3:not(.not-prose *) { font-size: 18px; font-weight: 600; margin: 24px 0 8px; }
+.prose-c p:not(.not-prose *) { margin: 0 0 14px; line-height: 1.65; color: #22262C; }
+.prose-c ul:not(.not-prose *), .prose-c ol:not(.not-prose *) { margin: 0 0 14px; padding-left: 22px; line-height: 1.65; }
+.prose-c ul:not(.not-prose *) { list-style: disc; }
+.prose-c ol:not(.not-prose *) { list-style: decimal; }
+.prose-c strong:not(.not-prose *) { font-weight: 600; }
+.prose-c table:not(.not-prose *) { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-variant-numeric: tabular-nums; }
+.prose-c td:not(.not-prose *), .prose-c th:not(.not-prose *) { border-bottom: 1px solid #D3D9E0; padding: 8px 6px; text-align: left; }
 .chat-md p { margin: 0 0 8px; line-height: 1.5; }
 .chat-md p:last-child { margin-bottom: 0; }
 .chat-md ul { list-style: disc; padding-left: 18px; margin: 0 0 8px; }
@@ -91,3 +91,15 @@ input[type="range"] { accent-color: var(--color-brand-500); }
 details.faq::details-content { height: 0; overflow: hidden; transition: height .4s cubic-bezier(.2,.7,.1,1), content-visibility .4s allow-discrete; }
 details.faq[open]::details-content { height: auto; }
 @media (prefers-reduced-motion: reduce) { details.faq::details-content { transition: none; } }
+
+/* Луч, бегущий по рамке (border beam) */
+@property --beam-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.beam { position: relative; isolation: isolate; }
+.beam::before {
+  content: ""; position: absolute; inset: 0; padding: 1.5px; border-radius: inherit; z-index: -1;
+  background: conic-gradient(from var(--beam-a), transparent 0deg, transparent 250deg, var(--beam-c, #E0566D) 320deg, #fff 345deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: beam-spin var(--beam-s, 4s) linear infinite;
+}
+@keyframes beam-spin { to { --beam-a: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .beam::before { animation: none; } }

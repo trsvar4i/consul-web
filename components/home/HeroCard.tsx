@@ -14,38 +14,27 @@ export function HeroCard({ amount }: { amount: number }) {
   const locale = useLocale();
   const before = amount + 3_000_000;
   const [v, setV] = useState(before);
-  const [typed, setTyped] = useState("");
-  const [phase, setPhase] = useState(0); // 0 typing, 1 sent, 2 out1, 3 out2+recalc
+  const [phase, setPhase] = useState(0); // 0 idle, 1 sent, 2 out1, 3 out2+recalc
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const full = t("mockIn");
     const timers: ReturnType<typeof setTimeout>[] = [];
     let raf = 0;
     const animate = (from: number, to: number) => {
       const t0 = performance.now();
       const step = (now: number) => {
-        const p = reduce ? 1 : Math.min(1, (now - t0) / 900);
+        const p = reduce ? 1 : Math.min(1, (now - t0) / 1100);
         setV(from + (to - from) * (1 - Math.pow(1 - p, 3)));
         if (p < 1) raf = requestAnimationFrame(step);
       };
       raf = requestAnimationFrame(step);
     };
-    const run = () => {
-      setPhase(0);
-      setTyped("");
-      setV(before);
-      const speed = reduce ? 0 : 55;
-      for (let i = 1; i <= full.length; i++) timers.push(setTimeout(() => setTyped(full.slice(0, i)), 600 + i * speed));
-      const sent = 600 + full.length * speed + 400;
-      timers.push(setTimeout(() => { setPhase(1); setTyped(""); }, sent));
-      timers.push(setTimeout(() => setPhase(2), sent + 700));
-      timers.push(setTimeout(() => { setPhase(3); animate(before, amount); }, sent + 1400));
-      if (!reduce) timers.push(setTimeout(run, sent + 7000));
-    };
-    run();
+    // один спокойный проход: сообщение → две галочки → пересчёт цифры
+    timers.push(setTimeout(() => setPhase(1), reduce ? 0 : 900));
+    timers.push(setTimeout(() => setPhase(2), reduce ? 0 : 1500));
+    timers.push(setTimeout(() => { setPhase(3); animate(before, amount); }, reduce ? 0 : 2100));
     return () => { timers.forEach(clearTimeout); cancelAnimationFrame(raf); };
-  }, [amount, before, t]);
+  }, [amount, before]);
 
   return (
     <div className="relative mx-auto w-full max-w-[420px]">
@@ -101,7 +90,7 @@ export function HeroCard({ amount }: { amount: number }) {
 
           <div className="flex items-center gap-1.5 rounded-card border border-gray-200 bg-white p-1.5">
             <span className="min-h-8 flex-1 truncate px-2 py-1.5 text-[13px]">
-              {typed ? <span>{typed}<span className="ml-px inline-block h-4 w-px animate-pulse bg-graphite-900 align-middle" /></span> : <span className="text-gray-500">{t("mockInput")}</span>}
+              <span className="text-gray-500">{t("mockInput")}</span>
             </span>
             <Camera size={16} className="text-gray-500" aria-hidden />
             <Mic size={16} className="text-gray-500" aria-hidden />

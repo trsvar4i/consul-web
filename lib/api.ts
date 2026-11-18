@@ -12,6 +12,8 @@ import pricesMock from "@/mocks/prices.json";
 import guidesMock from "@/mocks/guides.json";
 import assistantMock from "@/mocks/assistant.json";
 import { formatNum, pickLang } from "./format";
+import { buildGuide, type UserGuide } from "./guide-gen";
+export type { UserGuide, GuideBlock } from "./guide-gen";
 
 export const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS !== "false";
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
@@ -36,6 +38,7 @@ const KEYS = {
   business: "consul_business",
   tx: "consul_tx",
   reconcile: "consul_reconcile",
+  plan: "consul_plan",
 } as const;
 
 function read<T>(key: string): T | null {
@@ -82,18 +85,34 @@ export function startDemoSession() {
   remove(KEYS.business);
   remove(KEYS.tx);
   remove(KEYS.reconcile);
+  remove(KEYS.plan);
   write(KEYS.session, { demo: true, isNew: false, createdAt: new Date().toISOString() } satisfies Session);
 }
 export function startPhoneSession(phone: string) {
   remove(KEYS.business);
   write(KEYS.tx, []);
   remove(KEYS.reconcile);
+  remove(KEYS.plan);
   write(KEYS.session, { demo: false, isNew: true, phone: phone.slice(0, 4) + "•••", createdAt: new Date().toISOString() } satisfies Session);
 }
 export function finishOnboarding() {
   const s = getSession();
   if (s) write(KEYS.session, { ...s, isNew: false });
 }
+/* ---------------- subscription (demo) ---------------- */
+export type PlanId = "start" | "business" | "bank";
+export const PLANS: PlanId[] = ["start", "business", "bank"];
+/** Бэкенд: GET/PUT /api/subscription. Пока — localStorage. */
+export function getPlan(): PlanId | null {
+  return read<PlanId>(KEYS.plan);
+}
+export async function choosePlan(plan: PlanId): Promise<PlanId> {
+  if (!USE_MOCKS) return http<PlanId>("/api/subscription", { method: "PUT", body: JSON.stringify({ plan }) });
+  await sleep(700);
+  write(KEYS.plan, plan);
+  return plan;
+}
+
 export function logout() {
   Object.values(KEYS).forEach(remove);
 }
@@ -465,6 +484,36 @@ export async function listGuides(): Promise<Guide[]> {
 export async function getGuide(slug: string): Promise<Guide | null> {
   if (!USE_MOCKS) return http<Guide>(`/api/guides/${slug}`);
   return (guidesMock as Guide[]).find((g) => g.slug === slug) ?? null;
+}
+
+/* ---------------- user guides (made by the assistant) ---------------- */
+const USER_GUIDES_KEY = "consul_user_guides";
+
+/**
+ * Ассистент собирает гайд под проблему пользователя.
+ * Бэкенд: POST /api/assistant/generate-guide { problem } → UserGuide (Accept-Language).
+ * Готовый гайд хранится локально на устройстве.
+ */
+export async function generateGuide(problem: string, locale: Locale): Promise<UserGuide> {
+  let guide: UserGuide;
+  if (!USE_MOCKS) {
+    guide = await http<UserGuide>("/api/assistant/generate-guide", { method: "POST", body: JSON.stringify({ problem }) }, locale);
+  } else {
+    await sleep(2600);
+    if (mockFlag() === "error") throw new Error("generate");
+    guide = buildGuide(problem, locale);
+  }
+  write(USER_GUIDES_KEY, [guide, ...listUserGuides()].slice(0, 30));
+  return guide;
+}
+export function listUserGuides(): UserGuide[] {
+  return read<UserGuide[]>(USER_GUIDES_KEY) ?? [];
+}
+export function getUserGuide(id: string): UserGuide | null {
+  return listUserGuides().find((g) => g.id === id) ?? null;
+}
+export function deleteUserGuide(id: string) {
+  write(USER_GUIDES_KEY, listUserGuides().filter((g) => g.id !== id));
 }
 
 /* ---------------- assistant ---------------- */
