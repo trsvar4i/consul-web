@@ -1,0 +1,59 @@
+[
+  {
+    "slug": "revenue-profit-cash",
+    "title": {
+      "uz": "Tushum, foyda va hisobdagi pul — farqi nimada",
+      "ru": "Выручка, прибыль и деньги на счёте — в чём разница"
+    },
+    "description": {
+      "uz": "Nega 50 mln sotib, choʻntakda pul yoʻq. Uch raqamni oddiy misolda tushuntiramiz.",
+      "ru": "Почему продал на 50 млн, а денег нет. Разбираем три цифры на простом примере."
+    },
+    "tag": { "uz": "Asoslar", "ru": "Основы" },
+    "readMinutes": 5,
+    "updatedAt": "2026-11-10",
+    "tool": "markup",
+    "body": {
+      "uz": "## Uchta har xil raqam\n\nTadbirkor koʻpincha bitta raqamga qaraydi: qancha sotdim. Lekin biznesda kamida uchta muhim raqam bor va ular bir-biriga teng emas.\n\n- **Tushum** — xaridorlardan olingan barcha pul.\n- **Foyda** — tushumdan xarajatlarni ayirgandan keyin qolgani.\n- **Hisobdagi pul** — hozir kassada va kartada turgan pul.\n\n## Misol: quruq mevalar savdosi\n\nDilnoza oyiga 50 000 000 soʻmlik mahsulot sotadi. Bu tushum.\n\n| | Summa |\n|---|---|\n| Tushum | 50 000 000 |\n| Sotilgan tovar xaridi | 32 000 000 |\n| Ijara, maosh, boshqalar | 12 000 000 |\n| **Soliqqacha foyda** | **6 000 000** |\n\n50 million sotilgan, lekin ishlab topilgani 6 million. Va bu hali soliqqacha.\n\n## Nega foyda bor, pul yoʻq\n\nFoyda va pul bir xil emas. Pul quyidagi sabablarga koʻra foydadan kam boʻlishi mumkin:\n\n1. **Xaridorlar qarzi.** Tovar sotilgan, lekin pul hali kelmagan.\n2. **Zaxira uchun xarid.** Keyingi oy uchun tovar oldingiz — pul ketdi, xarajat esa keyin hisoblanadi.\n3. **Shaxsiy olish.** Biznes pulidan oʻzingizga olgan pul — bu biznes xarajati emas, lekin kassadan chiqadi.\n4. **Kredit toʻlovi.** Asosiy qarz toʻlovi foydani kamaytirmaydi, lekin pulni kamaytiradi.\n\n## Nima qilish kerak\n\n- Har oy uch raqamni alohida yozing: tushum, foyda, qolgan pul.\n- Majburiy toʻlovlar roʻyxatini tuzing: ijara, maosh, soliq.\n- Kutilmagan holatlar uchun zaxira qoldiring — oylik xarajatlarning taxminan 10%.\n\nConsul aynan shuni hisoblaydi: keyingi 30 kunda qancha pulni xavfsiz sarflash mumkin.",
+      "ru": "## Три разные цифры\n\nПредприниматель часто смотрит на одну цифру: сколько продал. Но в бизнесе минимум три важные цифры, и они не равны друг другу.\n\n- **Выручка** — все деньги, которые заплатили покупатели.\n- **Прибыль** — что осталось после вычета расходов.\n- **Деньги на счёте** — что лежит в кассе и на карте прямо сейчас.\n\n## Пример: торговля сухофруктами\n\nДильноза продаёт товара на 50 000 000 сум в месяц. Это выручка.\n\n| | Сумма |\n|---|---|\n| Выручка | 50 000 000 |\n| Закупка проданного товара | 32 000 000 |\n| Аренда, зарплата, прочее | 12 000 000 |\n| **Прибыль до налогов** | **6 000 000** |\n\nПродано на 50 миллионов, а заработано 6. И это ещё до налогов.\n\n## Почему прибыль есть, а денег нет\n\nПрибыль и деньги — не одно и то же. Денег может быть меньше прибыли по нескольким причинам:\n\n1. **Долги покупателей.** Товар продан, но деньги ещё не пришли.\n2. **Закупка впрок.** Вы купили товар на следующий месяц — деньги ушли, а расход посчитается позже.\n3. **Личное изъятие.** Деньги, которые вы взяли себе, — не расход бизнеса, но из кассы они уходят.\n4. **Платёж по кредиту.** Возврат основного долга не уменьшает прибыль, но уменьшает деньги.\n\n## Что делать\n\n- Каждый месяц записывайте три цифры отдельно: выручку, прибыль и остаток денег.\n- Составьте список обязательных платежей: аренда, зарплата, налог.\n- Оставляйте резерв на непредвиденное — примерно 10% месячных расходов.\n\nConsul считает именно это: сколько денег можно безопасно потратить в ближайшие 30 дней."
+    }
+  },
+  {
+    "slug": "tax-regime-2026",
+    "title": {
+      "uz": "2026 yilda soliq rejimini qanday tanlash kerak",
+      "ru": "Как выбрать налоговый режим в 2026 году"
+    },
+    "description": {
+      "uz": "Aylanma soligʻi, soddalashtirilgan QQS 6% yoki umumiy rejim — kimga qaysi biri foydali.",
+      "ru": "Налог с оборота, упрощённый НДС 6% или общий режим — кому что выгоднее."
+    },
+    "tag": { "uz": "Soliqlar", "ru": "Налоги" },
+    "readMinutes": 6,
+    "updatedAt": "2026-11-12",
+    "tool": "tax-regime",
+    "body": {
+      "uz": "## Qanday rejimlar bor\n\n2026 yil 1 iyundan kichik biznes uchun uchta asosiy variant bor.\n\n- **Aylanma soligʻi.** YaTT uchun yillik aylanma 1 mlrd soʻmgacha boʻlsa — 1%. Yuridik shaxslar uchun joylashuvga qarab 1% dan 4% gacha.\n- **Soddalashtirilgan QQS 6%.** Foyda soligʻi 0%. Savdo, umumiy ovqatlanish va xizmatlar uchun ixtiyoriy, 2030 yil 1 yanvargacha.\n- **Umumiy rejim.** QQS 12% va foyda soligʻi 15%.\n\n## Asosiy chegara\n\nYillik aylanma 12 000 BHM dan (taxminan 4,944 mlrd soʻm) oshsa, umumiy rejimga (QQS) oʻtish majburiy.\n\n## Qanday solishtirish kerak\n\nFaqat stavkaga qaramang. Muhimi — yil oxirida biznesda qancha pul qoladi.\n\n1. Yillik tushumni yozing.\n2. Tovar xaridlarini alohida yozing.\n3. Boshqa xarajatlarni yozing: ijara, maosh, transport.\n4. Har bir rejim uchun soliqni hisoblang va qolgan pulni solishtiring.\n\n## Oddiy qoida\n\n- Ustama kichik va xaridlar katta boʻlsa — QQS rejimida kirish QQS hisobga olinadi va bu foydali boʻlishi mumkin.\n- Ustama katta va xarajatlar kam boʻlsa — aylanma soligʻi odatda arzonroq.\n\nQuyidagi kalkulyatorda oʻz raqamlaringizni kiriting. Bu taxminiy hisob: rejimni tanlashdan oldin buxgalter bilan maslahatlashing.",
+      "ru": "## Какие есть режимы\n\nС 1 июня 2026 года у малого бизнеса три основных варианта.\n\n- **Налог с оборота.** Для ИП с годовым оборотом до 1 млрд сум — 1%. Для юрлиц от 1% до 4% в зависимости от местонахождения.\n- **Упрощённый НДС 6%.** Налог на прибыль 0%. Добровольно, для торговли, общепита и услуг, до 1 января 2030 года.\n- **Общий режим.** НДС 12% и налог на прибыль 15%.\n\n## Главный порог\n\nЕсли годовой оборот больше 12 000 БРВ (около 4,944 млрд сум), переход на общий режим (НДС) обязателен.\n\n## Как сравнивать\n\nНе смотрите только на ставку. Важно, сколько денег останется у бизнеса в конце года.\n\n1. Запишите выручку за год.\n2. Отдельно — закупки товара.\n3. Прочие расходы: аренда, зарплата, транспорт.\n4. Посчитайте налог в каждом режиме и сравните остаток.\n\n## Простое правило\n\n- Если наценка маленькая, а закупки большие — в режиме НДС входящий НДС принимается к зачёту, и это может быть выгоднее.\n- Если наценка большая, а расходов мало — налог с оборота обычно дешевле.\n\nВведите свои цифры в калькулятор ниже. Это ориентировочный расчёт: перед выбором режима проконсультируйтесь с бухгалтером."
+    }
+  },
+  {
+    "slug": "safe-credit",
+    "title": {
+      "uz": "Koʻtara olmaydigan kreditni qanday olmaslik kerak",
+      "ru": "Как не взять неподъёмный кредит"
+    },
+    "description": {
+      "uz": "Toʻlov foydaning necha foizi boʻlishi mumkin va bankka borishdan oldin nimani tekshirish kerak.",
+      "ru": "Какую долю прибыли может занимать платёж и что проверить до похода в банк."
+    },
+    "tag": { "uz": "Kredit", "ru": "Кредит" },
+    "readMinutes": 4,
+    "updatedAt": "2026-11-14",
+    "tool": "credit",
+    "body": {
+      "uz": "## Asosiy savol\n\nKredit toʻlovi tushumdan emas, **foydadan** toʻlanadi. Shuning uchun birinchi navbatda oylik foydani biling.\n\n## Yuklama\n\nYuklama = oylik toʻlov / oylik foyda × 100%.\n\n- 30% gacha — qulay.\n- 30–50% — ogʻir: kichik pasayish ham muammo boʻladi.\n- 50% dan ortiq — xavfli.\n\nBu bank normativi emas, balki xavfsizlik uchun moʻljal.\n\n## Yomon oyni tekshiring\n\nSavdo 20% kamaysa nima boʻladi? Agar shunda ham toʻlovni toʻlay olsangiz — kredit xavfsizroq.\n\n## Ortiqcha toʻlov\n\n50 mln soʻm, yillik 24%, 24 oy — oylik toʻlov taxminan 2 643 555 soʻm, ortiqcha toʻlov 13,4 mln soʻm atrofida.",
+      "ru": "## Главный вопрос\n\nПлатёж по кредиту платится не из выручки, а **из прибыли**. Поэтому сначала узнайте свою прибыль в месяц.\n\n## Нагрузка\n\nНагрузка = платёж в месяц / прибыль в месяц × 100%.\n\n- До 30% — комфортно.\n- 30–50% — тяжело: даже небольшой спад станет проблемой.\n- Больше 50% — опасно.\n\nЭто не банковский норматив, а ориентир для безопасности.\n\n## Проверьте плохой месяц\n\nЧто будет, если продажи упадут на 20%? Если и тогда вы платите без проблем — кредит безопаснее.\n\n## Переплата\n\n50 млн сум под 24% годовых на 24 месяца — платёж около 2 643 555 сум в месяц, переплата около 13,4 млн сум."
+    }
+  }
+]

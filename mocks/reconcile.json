@@ -1,0 +1,58 @@
+[
+  {
+    "id": "r1",
+    "date": "2026-11-02",
+    "amount": 1500000,
+    "counterpartyMasked": "Aziz K. ••• 4725",
+    "status": "unmatched"
+  },
+  {
+    "id": "r2",
+    "date": "2026-11-06",
+    "amount": 1200000,
+    "counterpartyMasked": "Malika R. ••• 5041",
+    "status": "unmatched"
+  },
+  {
+    "id": "r3",
+    "date": "2026-11-08",
+    "amount": 900000,
+    "counterpartyMasked": "Bekzod T. ••• 8024",
+    "status": "unmatched"
+  },
+  {
+    "id": "r4",
+    "date": "2026-11-12",
+    "amount": 1100000,
+    "counterpartyMasked": "OOO «Nur» ••• 1626",
+    "status": "unmatched"
+  },
+  {
+    "id": "r5",
+    "date": "2026-11-14",
+    "amount": 800000,
+    "counterpartyMasked": "Shahnoza A. ••• 9640",
+    "status": "unmatched"
+  },
+  {
+    "id": "r6",
+    "date": "2026-11-18",
+    "amount": 700000,
+    "counterpartyMasked": "Jasur M. ••• 3096",
+    "status": "unmatched"
+  },
+  {
+    "id": "r7",
+    "date": "2026-11-20",
+    "amount": 1000000,
+    "counterpartyMasked": "Dilshod O. ••• 8714",
+    "status": "unmatched"
+  },
+  {
+    "id": "r8",
+    "date": "2026-11-24",
+    "amount": 800000,
+    "counterpartyMasked": "Kamola S. ••• 6088",
+    "status": "unmatched"
+  }
+]

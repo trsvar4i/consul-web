@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Consul — финансовый директор малого бизнеса
 
-## Getting Started
+Фронтенд Consul для хакатона Umummilliy AI (Ташкент, 2026). Next.js 16 (App Router), TypeScript, Tailwind CSS v4, next-intl (uz / ru), recharts.
 
-First, run the development server:
+## Запуск
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000 → /uz
+npx vitest run     # тесты расчётов (кредит, налоги, наценка)
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Как устроено
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `app/[locale]/(site)` — публичные страницы: главная, калькуляторы, гайды.
+- `app/[locale]/app` — приложение после входа: панель, операции, импорт, кредит, сверка, паспорт бизнеса, бизнес-план, настройки.
+- `app/[locale]/chat` — полный чат ассистента; виджет — на всех страницах.
+- `lib/api.ts` — **все** данные. Сейчас моки (`mocks/*.json`), бэкенд подключается через `NEXT_PUBLIC_USE_MOCKS=false` и `NEXT_PUBLIC_API_URL`.
+- `lib/calc/` — формулы (деньги считает код, не ИИ); ставки в `lib/calc/rules.ts`.
+- `messages/uz.json`, `messages/ru.json` — все тексты интерфейса.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Эндпоинты бэкенда, которые ждёт фронтенд
 
-## Learn More
+| Функция | Запрос |
+|---|---|
+| `extractTransactions(file)` | `POST /api/transactions/extract` (multipart `file`: PDF, Word, Excel, фото) |
+| `estimateGrowth(input)` | `POST /api/assistant/estimate-growth` → `{ amount, rationale, confidence }` |
+| `sendAssistantMessage(...)` | `POST /api/assistant/message` |
+| остальные | см. таблицу в `lib/api.ts` |
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Демо: «Войти в демо-режиме» на `/login`. Для проверки состояний экранов добавьте `?mock=error` или `?mock=empty`.

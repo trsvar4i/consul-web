@@ -1,0 +1,42 @@
+{
+  "id": "biz_dilnoza",
+  "ownerName": "Dilnoza",
+  "name": "Quruq mevalar",
+  "activity": "trade",
+  "legalForm": "ip",
+  "market": "chorsu",
+  "taxRegime": "turnover",
+  "cashNow": 11500000,
+  "revenueRange": "10to50",
+  "inputMethod": "demo",
+  "recurringPayments": [
+    {
+      "id": "rp1",
+      "title": "Ijara / Аренда",
+      "amount": 3000000,
+      "dayOfMonth": 5,
+      "kind": "rent"
+    },
+    {
+      "id": "rp2",
+      "title": "Yordamchi / Помощник",
+      "amount": 2500000,
+      "dayOfMonth": 10,
+      "kind": "salary"
+    },
+    {
+      "id": "rp3",
+      "title": "Soliq / Налог",
+      "amount": 500000,
+      "dayOfMonth": 15,
+      "kind": "tax"
+    },
+    {
+      "id": "rp4",
+      "title": "Aloqa / Связь",
+      "amount": 100000,
+      "dayOfMonth": 20,
+      "kind": "other"
+    }
+  ]
+}
