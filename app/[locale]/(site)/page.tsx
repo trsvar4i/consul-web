@@ -9,13 +9,14 @@ import { HeroCard } from "@/components/home/HeroCard";
 import { PhoneStory } from "@/components/home/PhoneStory";
 import { Waterfall } from "@/components/home/Waterfall";
 import { MarkLarge } from "@/components/brand/Logo";
-import { Magnetic, Marquee, Reveal, Scramble, SectionMark, Spotlight } from "@/components/fx/fx";
+import { Marquee, Reveal, Scramble, SectionMark, Spotlight } from "@/components/fx/fx";
 import { PageCtx } from "@/components/layout/PageCtx";
 import { AskButton } from "@/components/assistant/WhyButton";
 import { GlowGrid } from "@/components/fx/GlowGrid";
 import { CreditCta } from "@/components/home/CreditCta";
 import { NotebookSwitch } from "@/components/home/NotebookSwitch";
 import { GuideCover } from "@/components/brand/GuideCover";
+import { CreateGuide } from "@/components/guides/CreateGuide";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -39,7 +40,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const pages = await getTranslations("pages");
 
   const dash = await getDashboard(undefined, locale);
-  const guides = (await listGuides()).slice(0, 3);
+  const guides = (await listGuides()).slice(0, 2);
   const faq = [1, 2, 3, 4, 5, 6].map((i) => ({ q: t(`faq${i}q`), a: t(`faq${i}a`) }));
   const marquee = L.raw("marquee") as string[];
 
@@ -227,6 +228,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             <Link href="/guides" className="hidden text-sm font-medium text-brand-500 hover:underline sm:block">{t("guidesAll")} →</Link>
           </div>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
+            <Reveal><CreateGuide withList={false} /></Reveal>
             {guides.map((g, i) => (
               <Reveal key={g.slug} delay={i * 120}>
                 <Link href={`/guides/${g.slug}`} className="group block h-full overflow-hidden rounded-block border border-gray-200 transition-colors hover:border-graphite-900">
@@ -243,6 +245,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               </Reveal>
             ))}
           </div>
+          <Link href="/guides" className="mt-6 inline-flex min-h-11 items-center text-sm font-medium text-brand-500 hover:underline sm:hidden">{t("guidesAll")} →</Link>
         </Container>
       </section>
 
@@ -283,9 +286,9 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             <div className="relative max-w-2xl">
               <h2 className="text-[34px] font-semibold leading-[1.02] tracking-[-0.03em] lg:text-[64px]">{t("finalTitle")}</h2>
               <p className="mt-5 text-lg text-ondark">{t("finalText")}</p>
-              <Magnetic className="mt-10">
-                <ButtonLink href="/login" size="lg" className="h-14 rounded-full px-8 text-base">{t("finalCta")} <ArrowRight size={18} aria-hidden /></ButtonLink>
-              </Magnetic>
+              <ButtonLink href="/login" size="lg" className="group mt-10 h-14 w-full rounded-full px-8 text-base sm:w-auto">
+                {t("finalCta")} <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
+              </ButtonLink>
               <p className="mt-5 text-sm text-ondark">{L("finalNote")}</p>
             </div>
           </div>

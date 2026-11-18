@@ -21,6 +21,7 @@ export function PhoneStory() {
   const [active, setActive] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const elapsedRef = useRef(0);
+  const chipsRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
   const [hover, setHover] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -54,6 +55,14 @@ export function PhoneStory() {
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [running]);
+
+  // телефон: докрутить ленту так, чтобы текущая глава была по центру
+  useEffect(() => {
+    const row = chipsRef.current;
+    const chip = row?.children[active] as HTMLElement | undefined;
+    if (!row || !chip) return;
+    row.scrollTo({ left: chip.offsetLeft - (row.clientWidth - chip.clientWidth) / 2, behavior: "smooth" });
+  }, [active]);
 
   const go = (i: number) => { elapsedRef.current = 0; setActive(i); setElapsed(0); };
   const typing = !reduced && elapsed < TYPING_MS;
@@ -100,7 +109,7 @@ export function PhoneStory() {
         {/* Телефон */}
         <div className="mx-auto w-full min-w-0 lg:mx-0 lg:w-auto">
           {/* Телефон: главы лентой над экраном */}
-          <div className="-mx-4 mb-5 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] lg:hidden" role="tablist" aria-label={t("featEyebrow")}>
+          <div ref={chipsRef} className="-mx-4 mb-5 flex gap-2 overflow-x-auto scroll-smooth px-4 pb-1 [scrollbar-width:none] lg:hidden" role="tablist" aria-label={t("featEyebrow")}>
             {Array.from({ length: STEPS }, (_, i) => {
               const Icon = ICONS[i];
               const on = i === active;

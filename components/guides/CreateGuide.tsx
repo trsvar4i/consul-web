@@ -26,7 +26,7 @@ function Lattice() {
 const TOPIC_TOOL = { debt: "credit", credit: "credit", tax: "tax-regime", cash: "markup", price: "markup" } as const;
 
 /** Карточка-кнопка «Создать гайд с ассистентом» + гайды, созданные на этом устройстве. */
-export function CreateGuide() {
+export function CreateGuide({ withList = true }: { withList?: boolean }) {
   const t = useTranslations("myGuides");
   const tg = useTranslations("guides");
   const locale = useLocale() as Locale;
@@ -79,7 +79,7 @@ export function CreateGuide() {
         </span>
       </button>
 
-      {mine.map((g) => (
+      {withList && mine.map((g) => (
         <Link key={g.id} href={`/guides/my?id=${g.id}`} className="group flex flex-col overflow-hidden rounded-card border border-gray-200 hover:border-graphite-900">
           <div className="relative h-48 overflow-hidden"><GuideCover guide={{ slug: g.id, tool: TOPIC_TOOL[g.topic], title: { uz: "", ru: "" }, description: { uz: "", ru: "" }, body: { uz: "", ru: "" }, readMinutes: g.readMinutes, updatedAt: "", tag: { uz: "", ru: "" } }} className="transition-transform duration-700 group-hover:scale-[1.04]" /></div>
           <div className="flex flex-1 flex-col p-5">

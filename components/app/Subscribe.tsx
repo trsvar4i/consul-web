@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Check, Landmark, Loader2, MessageCircle, Wallet } from "lucide-react";
+import { ArrowRight, Check, Landmark, Loader2, MessageCircle, Wallet } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { choosePlan, getPlan, getSession, PLANS, type PlanId } from "@/lib/api";
 import { Logo } from "../brand/Logo";
 import { LanguageSwitcher } from "../layout/LanguageSwitcher";
 import { GlowGrid } from "../fx/GlowGrid";
-import { Magnetic, Reveal, Spotlight } from "../fx/fx";
+import { Reveal, Spotlight } from "../fx/fx";
 import { cn } from "../ui/primitives";
 
 const ICON: Record<PlanId, typeof Wallet> = { start: Wallet, business: MessageCircle, bank: Landmark };
@@ -93,19 +93,18 @@ export function Subscribe() {
                         </li>
                       ))}
                     </ul>
-                    <Magnetic className="mt-8 w-full" strength={0.12}>
                       <button
                         onClick={() => void pick(p)}
                         disabled={!!busy}
                         className={cn(
-                          "inline-flex h-13 min-h-12 w-full items-center justify-center gap-2 rounded-full px-6 font-medium transition-colors disabled:opacity-60",
+                          "group mt-8 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-6 font-medium transition-colors disabled:opacity-60",
                           featured ? "bg-brand-500 text-white hover:bg-brand-600" : "bg-white text-graphite-900 hover:bg-brand-50",
                         )}
                       >
                         {done === p ? <Check size={18} aria-hidden /> : busy === p ? <Loader2 size={18} className="animate-spin" aria-hidden /> : null}
                         {busy === p && done !== p ? t("choosing") : t(`${p}_cta`)}
+                        {!busy && <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden />}
                       </button>
-                    </Magnetic>
                   </Spotlight>
                 </div>
               </Reveal>
