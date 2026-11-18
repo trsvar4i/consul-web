@@ -1,9 +1,17 @@
-// Next.js 16: proxy.ts (formerly middleware.ts). Redirects "/" -> "/uz" (or /ru by browser language).
-import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
+import { NextResponse, type NextRequest } from "next/server";
 
-export default createMiddleware(routing);
+const LANGS = ["uz", "ru"];
 
-export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\..*).*)"],
-};
+/** Adds a language prefix: saved choice (cookie) -> browser language -> Uzbek. */
+export function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  if (LANGS.some(l => pathname === `/${l}` || pathname.startsWith(`/${l}/`))) return;
+  const saved = request.cookies.get("lang")?.value;
+  const accept = request.headers.get("accept-language") || "";
+  const first = accept.split(",")[0].trim().slice(0, 2).toLowerCase();
+  const lang = saved && LANGS.includes(saved) ? saved : first === "ru" ? "ru" : "uz";
+  request.nextUrl.pathname = `/${lang}${pathname === "/" ? "" : pathname}`;
+  return NextResponse.redirect(request.nextUrl);
+}
+
+export const config = { matcher: ["/((?!_next|api|icon|favicon|.*\\..*).*)"] };
