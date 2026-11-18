@@ -62,19 +62,19 @@ export function PhoneStory() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-graphite-900 py-20 text-white lg:py-28"
+      className="relative overflow-hidden bg-graphite-900 py-14 text-white sm:py-20 lg:py-28"
       aria-label={t("featTitle")}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onPointerEnter={(e) => e.pointerType === "mouse" && setHover(true)}
+      onPointerLeave={(e) => e.pointerType === "mouse" && setHover(false)}
     >
       <GlowGrid />
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:gap-16">
+      <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:gap-16">
         {/* Главы */}
-        <div>
+        <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ondark"><span className="num text-brand-400">02</span>&nbsp;&nbsp;{t("featEyebrow")}</p>
           <h2 className="mt-3 max-w-xl text-[28px] font-semibold leading-[1.06] tracking-[-0.025em] sm:text-[36px] lg:text-[52px]">{t("featTitle")}</h2>
           <p className="mt-4 max-w-lg text-lg text-ondark">{t("featSub")}</p>
-          <ol className="mt-8 space-y-1">
+          <ol className="mt-8 hidden space-y-1 lg:block">
             {Array.from({ length: STEPS }, (_, i) => {
               const Icon = ICONS[i];
               const on = i === active;
@@ -92,14 +92,32 @@ export function PhoneStory() {
               );
             })}
           </ol>
-          <button onClick={() => setPaused((p) => !p)} className="mt-4 inline-flex min-h-10 items-center gap-2 rounded-full px-3 text-sm text-ondark hover:text-white" aria-pressed={paused}>
+          <button onClick={() => setPaused((p) => !p)} className="mt-4 hidden lg:inline-flex min-h-10 items-center gap-2 rounded-full px-3 text-sm text-ondark hover:text-white" aria-pressed={paused}>
             {paused ? <Play size={15} aria-hidden /> : <Pause size={15} aria-hidden />} {paused ? t("play") : t("pause")}
           </button>
         </div>
 
         {/* Телефон */}
-        <div className="mx-auto lg:mx-0">
-          <div className="relative h-[600px] w-[292px] rounded-[46px] border border-white/15 bg-[#14171B] p-2.5 shadow-[0_40px_120px_-30px_rgba(224,86,109,0.35)] max-sm:h-[540px] max-sm:w-[264px]">
+        <div className="mx-auto w-full min-w-0 lg:mx-0 lg:w-auto">
+          {/* Телефон: главы лентой над экраном */}
+          <div className="-mx-4 mb-5 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] lg:hidden" role="tablist" aria-label={t("featEyebrow")}>
+            {Array.from({ length: STEPS }, (_, i) => {
+              const Icon = ICONS[i];
+              const on = i === active;
+              return (
+                <button key={i} role="tab" aria-selected={on} onClick={() => go(i)}
+                  className={cn("relative inline-flex min-h-11 shrink-0 items-center gap-2 overflow-hidden rounded-full border px-4 text-sm font-medium transition-colors",
+                    on ? "border-white bg-white text-graphite-900" : "border-white/15 text-white/70")}>
+                  <Icon size={16} aria-hidden /> {t(`f${i + 1}`)}
+                  {on && <span aria-hidden className="absolute bottom-0 left-0 h-0.5 bg-brand-500" style={{ width: `${(reduced ? 1 : local) * 100}%` }} />}
+                </button>
+              );
+            })}
+            <button onClick={() => setPaused((p) => !p)} aria-label={paused ? t("play") : t("pause")} className="grid size-11 shrink-0 place-items-center rounded-full border border-white/15 text-white/70">
+              {paused ? <Play size={15} aria-hidden /> : <Pause size={15} aria-hidden />}
+            </button>
+          </div>
+          <div className="relative mx-auto h-[600px] w-[292px] rounded-[46px] border border-white/15 bg-[#14171B] p-2.5 shadow-[0_40px_120px_-30px_rgba(224,86,109,0.35)] max-sm:h-[540px] max-sm:w-[264px]">
             <div className="absolute left-1/2 top-3.5 z-10 h-5 w-20 -translate-x-1/2 rounded-full bg-black" aria-hidden />
             <div className="flex h-full flex-col overflow-hidden rounded-[38px] bg-mist text-graphite-900">
               <div className="flex items-center gap-2 bg-white px-4 pb-2.5 pt-9">

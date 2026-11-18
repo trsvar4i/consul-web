@@ -32,10 +32,10 @@ export function Operations() {
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-[22px] font-semibold tracking-tight lg:text-[28px]">{t("h1")}</h1>
-        <div className="flex flex-wrap gap-2">
-          <Button onClick={() => openAdd()}><Plus size={18} aria-hidden /> {t("add").replace("+ ", "")}</Button>
-          <ButtonLink href="/app/operations/import" variant="secondary"><FileUp size={18} aria-hidden /> {t("import")}</ButtonLink>
-          <ButtonLink href="/app/operations/import" variant="secondary"><Camera size={18} aria-hidden /> {t("photo")}</ButtonLink>
+        <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto">
+          <Button onClick={() => openAdd()} className="hidden sm:inline-flex"><Plus size={18} aria-hidden /> {t("add").replace("+ ", "")}</Button>
+          <ButtonLink href="/app/operations/import" variant="secondary" className="px-3"><FileUp size={18} aria-hidden /> {t("import")}</ButtonLink>
+          <ButtonLink href="/app/operations/import" variant="secondary" className="px-3"><Camera size={18} aria-hidden /> {t("photoShort")}</ButtonLink>
         </div>
       </div>
 

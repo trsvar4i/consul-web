@@ -132,7 +132,7 @@ export function AppCredit() {
           </div>
           <div>
             <p className="mb-1.5 text-sm font-medium">{t("purpose")}</p>
-            <Segmented label={t("purpose")} value={purpose} onChange={setPurpose}
+            <Segmented wrap label={t("purpose")} value={purpose} onChange={setPurpose}
               options={(["expansion", "equipment", "stock"] as const).map((p) => ({ value: p, label: t(`p_${p}`) }))} />
           </div>
           <div>
@@ -162,7 +162,7 @@ export function AppCredit() {
           </div>
           <div>
             <p className="mb-1.5 text-sm font-medium">{t("scenario")}</p>
-            <Segmented label={t("scenario")} value={scenario} onChange={setScenario}
+            <Segmented wrap label={t("scenario")} value={scenario} onChange={setScenario}
               options={(["pess", "base", "opt"] as Scenario[]).map((s) => ({ value: s, label: t(`s_${s}`) }))} />
             <p className="mt-1 text-xs text-gray-700">{t("scenarioHint")}</p>
           </div>
@@ -173,7 +173,7 @@ export function AppCredit() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-sm text-gray-700">{tc("payment")}</p>
-                <p className="num mt-1 text-[40px] font-bold leading-none tracking-tight text-brand-500">{formatNum(payment)}</p>
+                <p className="num mt-1 whitespace-nowrap text-[34px] font-bold leading-none tracking-tight text-brand-500 sm:text-[40px]">{formatNum(payment)}</p>
               </div>
               <WhyButton metric="credit_load" value={pct} question={tc("whyLoad")} />
             </div>

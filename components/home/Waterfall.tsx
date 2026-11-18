@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { formatNum } from "@/lib/format";
+import { useLocale } from "next-intl";
+import { formatNum, formatShort } from "@/lib/format";
 import { cn } from "../ui/primitives";
 
 /** Выручка → закупки → расходы → остаток: столбики «опускаются» при прокрутке до блока. */
 export function Waterfall({ rows }: { rows: { label: string; value: number }[] }) {
+  const locale = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const [on, setOn] = useState(false);
   useEffect(() => {
@@ -49,7 +51,7 @@ export function Waterfall({ rows }: { rows: { label: string; value: number }[] }
           <div key={b.label}>
             <dt className="text-[11px] leading-tight text-ondark sm:text-xs">{b.label}</dt>
             <dd className={cn("num mt-1 text-xs font-semibold sm:text-base", b.last ? "text-brand-400" : "text-white")}>
-              {b.value < 0 ? "−" : ""}{formatNum(Math.abs(b.value))}
+              <span className="sm:hidden">{b.value < 0 ? "−" : ""}{formatShort(Math.abs(b.value), locale)}</span><span className="hidden sm:inline">{b.value < 0 ? "−" : ""}{formatNum(Math.abs(b.value))}</span>
             </dd>
           </div>
         ))}

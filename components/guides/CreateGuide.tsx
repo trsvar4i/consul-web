@@ -6,6 +6,7 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { generateGuide, listUserGuides, type UserGuide } from "@/lib/api";
 import type { Locale } from "@/lib/types";
 import { Spotlight } from "../fx/fx";
+import { GuideCover } from "../brand/GuideCover";
 import { Sheet } from "../ui/sheet";
 import { Button, cn } from "../ui/primitives";
 
@@ -22,7 +23,7 @@ function Lattice() {
   );
 }
 
-const TOPIC_BG: Record<string, string> = { debt: "bg-warning-50", credit: "bg-mist", tax: "bg-brand-50", cash: "bg-graphite-900", price: "bg-success-50" };
+const TOPIC_TOOL = { debt: "credit", credit: "credit", tax: "tax-regime", cash: "markup", price: "markup" } as const;
 
 /** Карточка-кнопка «Создать гайд с ассистентом» + гайды, созданные на этом устройстве. */
 export function CreateGuide() {
@@ -65,7 +66,7 @@ export function CreateGuide() {
     <>
       <button onClick={() => setOpen(true)} className="group block h-full w-full text-left">
         <span className="beam block h-full rounded-card [--beam-s:6s]">
-          <Spotlight color="rgba(224,86,109,0.25)" className="flex h-full min-h-[340px] flex-col rounded-card bg-graphite-900 p-6 text-white">
+          <Spotlight color="rgba(224,86,109,0.25)" className="flex h-full min-h-[250px] flex-col rounded-card bg-graphite-900 p-6 sm:min-h-[340px] text-white">
             <span className="grid size-12 place-items-center rounded-[14px] bg-brand-500 transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110">
               <Sparkles size={22} aria-hidden />
             </span>
@@ -80,9 +81,7 @@ export function CreateGuide() {
 
       {mine.map((g) => (
         <Link key={g.id} href={`/guides/my?id=${g.id}`} className="group flex flex-col overflow-hidden rounded-card border border-gray-200 hover:border-graphite-900">
-          <div className={cn("relative flex h-48 items-end p-5", TOPIC_BG[g.topic] ?? "bg-mist")}>
-            <span className={cn("text-[64px] font-bold leading-none tracking-tighter", g.topic === "cash" ? "text-white/15" : "text-graphite-900/10")} aria-hidden>Ai</span>
-          </div>
+          <div className="relative h-48 overflow-hidden"><GuideCover guide={{ slug: g.id, tool: TOPIC_TOOL[g.topic], title: { uz: "", ru: "" }, description: { uz: "", ru: "" }, body: { uz: "", ru: "" }, readMinutes: g.readMinutes, updatedAt: "", tag: { uz: "", ru: "" } }} className="transition-transform duration-700 group-hover:scale-[1.04]" /></div>
           <div className="flex flex-1 flex-col p-5">
             <h2 className="text-lg font-semibold leading-snug">{g.title}</h2>
             <p className="mt-2 flex-1 text-[15px] text-gray-700">{g.description}</p>

@@ -191,7 +191,9 @@
     "seo2": "Shuning uchun avval soʻnggi uch oydagi oʻrtacha foydani hisoblang. Eng yaxshi oyni emas, oddiy oyni oling. Keyin uni oylik toʻlov bilan solishtiring. Biz buni yuklama deymiz: toʻlov foydaga boʻlingani. 30% gacha — qulay: savdo biroz kamaysa ham toʻlay olasiz. 30% dan 50% gacha — ogʻir: har qanday pasayish yoki kutilmagan xarajat muammoga aylanadi. 50% dan ortiq — xavfli.",
     "seo3": "Yomon stsenariyni tekshiring. Savdo 20% kamaydi deb tasavvur qiling — bu bayramlardan keyin, mavsum almashganda yoki yoningizda raqobatchi ochilganda boʻladi. Shunda toʻlov, ijara va maoshga pul yetadimi? Yetmasa — summani kamaytiring yoki muddatni uzaytiring.",
     "seo4": "Faqat toʻlovga emas, ortiqcha toʻlovga ham qarang. Uzoq muddat toʻlovni kamaytiradi, lekin bankka koʻproq pul berasiz. Differensial toʻlovlarda ortiqcha toʻlov kamroq, lekin birinchi oylar eng ogʻir. Savdo notekis boʻlsa, annuitet odatda xavfsizroq.",
-    "seo5": "Va nihoyat: kredit pul keltirishi kerak. Uni kengayish yoki xarid uchun olsangiz, foyda qanchaga oshishini hisoblang. Oʻsish toʻlovdan kam boʻlsa — kredit biznesga yordam bermaydi, pulingizni yeydi. Consul buni haqiqiy raqamlaringizda tekshira oladi."
+    "seo5": "Va nihoyat: kredit pul keltirishi kerak. Uni kengayish yoki xarid uchun olsangiz, foyda qanchaga oshishini hisoblang. Oʻsish toʻlovdan kam boʻlsa — kredit biznesga yordam bermaydi, pulingizni yeydi. Consul buni haqiqiy raqamlaringizda tekshira oladi.",
+    "annuityShort": "Teng",
+    "differentiatedShort": "Kamayuvchi"
   },
   "tax": {
     "h1": "Qaysi soliq rejimi foydali",
@@ -468,7 +470,8 @@
     "deleted": "Oʻchirildi",
     "confirmDelete": "Operatsiyani oʻchirasizmi? Buni qaytarib boʻlmaydi.",
     "amountError": "Summani kiriting",
-    "count": "{n} ta operatsiya"
+    "count": "{n} ta operatsiya",
+    "photoShort": "Chek surati"
   },
   "import": {
     "h1": "Operatsiyalar importi",
@@ -708,7 +711,7 @@
     "mockScore": "Biznes bahosi",
     "featEyebrow": "Bu qanday koʻrinadi",
     "featTitle": "Nima boʻlganini ayting. Qolganini Consul hisoblaydi.",
-    "featSub": "Jadvallar oʻrniga bitta jumla: hisob, soliq, kredit, narxlar va solishtirish.",
+    "featSub": "Jadvallar oʻrniga bitta jumla: hisob, soliq, kredit, qarzlar va solishtirish.",
     "f1": "Hisob",
     "f1in": "bugun 1,2 mln sotdim",
     "f1out": "Savdo qoʻshildi. Oylik tushum — 51 200 000.",
@@ -773,7 +776,8 @@
     "faqSide": "Javob topmadingizmi? Yordamchidan soʻrang — biznesingiz raqamlarida javob beradi.",
     "faqAsk": "Yordamchidan soʻrash",
     "pause": "Pauza",
-    "play": "Davom etish"
+    "play": "Davom etish",
+    "toolCreditNote": "24 oyga 50 mln da toʻlov"
   },
   "plans": {
     "h1": "Obunani tanlang",

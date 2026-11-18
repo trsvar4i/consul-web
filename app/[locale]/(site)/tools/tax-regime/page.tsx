@@ -28,7 +28,7 @@ export default async function TaxPage({ params }: PageProps<"/[locale]/tools/tax
       <Container className="py-8 lg:py-12">
         <TaxRegimeCalculator />
         <p className="mt-8">
-          <Link href="/guides/tax-regime-2026" className="font-medium text-brand-500 hover:underline">{g("read")}: {nav("guides")} →</Link>
+          <Link href="/guides/tax-regime-2026" className="inline-flex min-h-11 items-center font-medium text-brand-500 hover:underline">{g("read")}: {nav("guides")} →</Link>
         </p>
       </Container>
     </>

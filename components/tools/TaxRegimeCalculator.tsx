@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { BadgeCheck } from "lucide-react";
 import { compareRegimes, type RegimeKey } from "@/lib/calc/tax";
@@ -12,6 +12,7 @@ import { MoneyInput } from "../brand/MoneyInput";
 import { Banner } from "../brand/blocks";
 import { WhyButton } from "../assistant/WhyButton";
 import { Segmented } from "../ui/segmented";
+import { StickyResult } from "./StickyResult";
 import { Card, cn, Label, Select } from "../ui/primitives";
 
 const ACTIVITIES: Activity[] = ["trade", "catering", "services", "production", "other"];
@@ -20,6 +21,8 @@ export function TaxRegimeCalculator() {
   const t = useTranslations("tax");
   const locale = useLocale();
   const { updatePageData } = useAssistant();
+  const formRef = useRef<HTMLDivElement>(null);
+  const resRef = useRef<HTMLDivElement>(null);
   const [legalForm, setLegalForm] = useState<"ip" | "legal">("ip");
   const [activity, setActivity] = useState<Activity>("trade");
   const [rate, setRate] = useState(0.04);
@@ -45,6 +48,7 @@ export function TaxRegimeCalculator() {
 
   return (
     <div className="space-y-6">
+      <div ref={formRef}>
       <Card className="grid gap-5 p-5 sm:p-6 md:grid-cols-2">
         <div>
           <p className="mb-1.5 text-sm font-medium">{t("form")}</p>
@@ -76,11 +80,12 @@ export function TaxRegimeCalculator() {
         <MoneyInput label={t("purchases")} value={purchases} onChange={setPurchases} />
         <MoneyInput label={t("other_expenses")} value={other} onChange={setOther} className="md:col-span-2 md:max-w-[calc(50%-10px)]" />
       </Card>
+      </div>
 
       {r.overGeneralThreshold && <Banner level="warning">{t("thresholdWarn")}</Banner>}
       {r.ipOverLimit && <Banner level="warning">{t("ipLimit")}</Banner>}
 
-      <div className="grid gap-4 md:grid-cols-3" aria-live="polite">
+      <div ref={resRef} className="grid scroll-mt-24 gap-4 md:grid-cols-3" aria-live="polite">
         {r.results.map((x) => {
           const best = r.best === x.key;
           return (
@@ -119,6 +124,11 @@ export function TaxRegimeCalculator() {
         })}
       </div>
 
+      {r.best && (
+        <StickyResult target={resRef} area={formRef} tone="success"
+          label={`${t("best")}: ${name(r.best)}`}
+          value={`${formatSom(r.results.find((x) => x.key === r.best)!.taxYear, locale)} · ${t("taxYear").toLowerCase()}`} />
+      )}
       <p className="text-sm text-gray-700">{t("disclaimer", { date: formatDateFull(RULES.effectiveFrom, locale) })}</p>
     </div>
   );

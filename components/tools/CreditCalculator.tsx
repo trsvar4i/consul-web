@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm, useWatch, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -12,6 +12,7 @@ import { useAssistant } from "@/lib/assistant-context";
 import { MoneyInput } from "../brand/MoneyInput";
 import { WhyButton } from "../assistant/WhyButton";
 import { Segmented } from "../ui/segmented";
+import { StickyResult } from "./StickyResult";
 import { ButtonLink, Card, cn, Input, Label } from "../ui/primitives";
 
 const schema = z.object({
@@ -28,6 +29,8 @@ export function CreditCalculator({ embedded = false }: { embedded?: boolean }) {
   const locale = useLocale();
   const { updatePageData } = useAssistant();
   const [showSchedule, setShowSchedule] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
+  const resRef = useRef<HTMLDivElement>(null);
   const [loggedIn, setLoggedIn] = useState(false);
   // eslint-disable-next-line react-hooks/set-state-in-effect -- session lives in localStorage
   useEffect(() => setLoggedIn(!!getSession()), []);
@@ -69,6 +72,7 @@ export function CreditCalculator({ embedded = false }: { embedded?: boolean }) {
   return (
     <div className={cn("grid gap-6", !embedded && "lg:grid-cols-[1fr_1.05fr] lg:gap-8")}>
       {/* Inputs */}
+      <div ref={formRef}>
       <Card className="space-y-5 p-5 sm:p-6">
         <Controller control={control} name="sum" render={({ field }) => (
           <MoneyInput label={t("sum")} value={field.value} onChange={(n) => field.onChange(n ?? 0)} />
@@ -89,16 +93,19 @@ export function CreditCalculator({ embedded = false }: { embedded?: boolean }) {
           <p className="mb-1.5 text-sm font-medium">{t("type")}</p>
           <Controller control={control} name="type" render={({ field }) => (
             <Segmented label={t("type")} value={field.value} onChange={field.onChange}
-              options={[{ value: "annuity", label: t("annuity") }, { value: "differentiated", label: t("differentiated") }]} />
+              options={[{ value: "annuity", label: t("annuityShort") }, { value: "differentiated", label: t("differentiatedShort") }]} />
           )} />
+          <p className="mt-1.5 text-xs text-gray-700">{type === "annuity" ? t("annuity") : t("differentiated")}</p>
         </div>
         <Controller control={control} name="profit" render={({ field }) => (
           <MoneyInput label={t("profit")} hint={t("profitHint")} value={field.value} onChange={field.onChange} />
         )} />
       </Card>
+      </div>
 
       {/* Results (live, no submit button) */}
       <div className="space-y-4" aria-live="polite">
+        <div ref={resRef} className="scroll-mt-24">
         <Card className="p-5 sm:p-6">
           <p className="text-sm text-gray-700">{type === "annuity" ? t("payment") : t("paymentFirstLast")}</p>
           <p className="num mt-1 text-[40px] font-bold leading-none tracking-tight text-brand-500 lg:text-[48px]">
@@ -108,14 +115,15 @@ export function CreditCalculator({ embedded = false }: { embedded?: boolean }) {
           <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-gray-200 pt-4">
             <div>
               <dt className="text-sm text-gray-700">{t("overpay")}</dt>
-              <dd className="num mt-0.5 text-lg font-semibold">{formatSom(over, locale)}</dd>
+              <dd className="num mt-0.5 whitespace-nowrap text-base font-semibold sm:text-lg">{formatSom(over, locale)}</dd>
             </div>
             <div>
               <dt className="text-sm text-gray-700">{t("total")}</dt>
-              <dd className="num mt-0.5 text-lg font-semibold">{formatSom(total, locale)}</dd>
+              <dd className="num mt-0.5 whitespace-nowrap text-base font-semibold sm:text-lg">{formatSom(total, locale)}</dd>
             </div>
           </dl>
         </Card>
+        </div>
 
         <Card className="p-5 sm:p-6">
           <div className="flex items-center justify-between gap-3">
@@ -177,6 +185,12 @@ export function CreditCalculator({ embedded = false }: { embedded?: boolean }) {
           )}
         </div>
       </div>
+      {!embedded && (
+        <StickyResult target={resRef} area={formRef}
+          label={`${type === "annuity" ? t("payment") : t("paymentFirstLast")}${levelUi && pct !== undefined ? ` · ${Math.round(pct)}% ${levelUi.label.toLowerCase()}` : ""}`}
+          value={`${type === "annuity" ? formatNum(first) : `${formatNum(first)} → ${formatNum(last)}`} ${locale === "uz" ? "soʻm" : "сум"}`}
+          tone={level === "danger" ? "error" : level === "hard" ? "warning" : "brand"} />
+      )}
     </div>
   );
 }

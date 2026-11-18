@@ -25,6 +25,7 @@ export const viewport: Viewport = {
   themeColor: "#22262C",
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {

@@ -63,8 +63,8 @@ export default async function GuidePage({ params }: PageProps<"/[locale]/guides/
         {toc.length > 1 && (
           <nav aria-label={t("toc")} className="mb-8 rounded-card border border-gray-200 p-5">
             <p className="text-sm font-semibold">{t("toc")}</p>
-            <ol className="mt-2 space-y-1.5 text-[15px]">
-              {toc.map((h) => <li key={h.id}><a href={`#${h.id}`} className="text-brand-500 hover:underline">{h.text}</a></li>)}
+            <ol className="mt-1 text-[15px]">
+              {toc.map((h) => <li key={h.id}><a href={`#${h.id}`} className="inline-flex min-h-10 items-center text-brand-500 hover:underline">{h.text}</a></li>)}
             </ol>
           </nav>
         )}

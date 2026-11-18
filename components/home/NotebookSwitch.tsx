@@ -75,8 +75,8 @@ export function NotebookSwitch() {
             {rows.map((r, i) => (
               <div key={r} className="flex items-baseline justify-between gap-4 border-b border-gray-200 py-3 transition-all duration-500"
                 style={{ transitionDelay: mode === "consul" ? `${150 + i * 90}ms` : "0ms", opacity: mode === "consul" ? 1 : 0, transform: mode === "consul" ? "none" : "translateY(8px)" }}>
-                <dt className={cn("text-[15px]", i === 0 ? "font-medium text-graphite-900" : "text-gray-700")}>{r}</dt>
-                <dd className={cn("text-[17px] font-semibold", i === 0 ? "text-graphite-900" : "text-graphite-900/80")}>{VALUES[i] < 0 ? "−" : ""}{formatNum(Math.abs(VALUES[i]))}</dd>
+                <dt className={cn("min-w-0 text-[14px] leading-snug sm:text-[15px]", i === 0 ? "font-medium text-graphite-900" : "text-gray-700")}>{r}</dt>
+                <dd className={cn("shrink-0 whitespace-nowrap text-[16px] font-semibold sm:text-[17px]", i === 0 ? "text-graphite-900" : "text-graphite-900/80")}>{VALUES[i] < 0 ? "−" : ""}{formatNum(Math.abs(VALUES[i]))}</dd>
               </div>
             ))}
           </dl>

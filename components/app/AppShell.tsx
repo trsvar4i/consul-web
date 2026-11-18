@@ -39,7 +39,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const locale = useLocale() as Locale;
   const pathname = usePathname();
   const router = useRouter();
-  const { addOperationRequested } = useAssistant();
+  const assistant = useAssistant();
+  const { addOperationRequested } = assistant;
   const [ready, setReady] = useState(false);
   const [business, setBusiness] = useState<Business | null>(null);
   const [version, setVersion] = useState(0);
@@ -129,10 +130,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <div className="min-w-0">
           {/* Top bar (mobile) */}
-          <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-gray-200 bg-white/95 px-4 backdrop-blur lg:hidden">
+          <header className="sticky top-0 z-30 flex h-14 items-center gap-2.5 border-b border-gray-200 bg-white/95 px-4 backdrop-blur lg:hidden">
             <Link href="/" aria-label="Consul"><Logo size={28} markOnly /></Link>
             <p className="min-w-0 flex-1 truncate text-[15px] font-semibold">{business ? `${business.ownerName} · ${business.name}` : ""}</p>
             <LanguageSwitcher />
+            <button onClick={() => assistant.open()} aria-label={t("chat")}
+              className="relative grid size-10 shrink-0 place-items-center rounded-full bg-graphite-900 text-white">
+              <MessageCircle size={18} aria-hidden />
+              {assistant.unread && <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-brand-400 ring-2 ring-graphite-900" aria-hidden />}
+            </button>
           </header>
           <main id="main" className="mx-auto w-full max-w-6xl px-4 pb-28 pt-5 sm:px-6 lg:pb-12 lg:pt-8">{children}</main>
         </div>

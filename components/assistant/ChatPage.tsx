@@ -37,7 +37,7 @@ export function ChatPage() {
 
   useEffect(() => {
     if (a.isOpen) a.close();
-    composer.current?.focus();
+    if (window.matchMedia("(pointer: fine)").matches) composer.current?.focus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -80,6 +80,7 @@ export function ChatPage() {
   return (
     <div className="flex h-dvh flex-col bg-white">
       <header className="flex h-14 shrink-0 items-center gap-3 border-b border-gray-200 px-3 sm:px-4">
+        <Link href={back} className="grid size-10 place-items-center rounded-btn hover:bg-mist lg:hidden" aria-label={back === "/app" ? tApp("dashboard") : "Consul"}><ArrowLeft size={20} aria-hidden /></Link>
         <button className="grid size-10 place-items-center rounded-btn hover:bg-mist lg:hidden" aria-label={t("threads")} onClick={() => setDrawer(true)}>
           <Menu size={20} aria-hidden />
         </button>

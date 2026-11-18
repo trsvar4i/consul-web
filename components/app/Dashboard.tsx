@@ -168,7 +168,7 @@ export function Dashboard() {
       <Card className="p-5 sm:p-6">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold">{t("recentTitle")}</h2>
-          <Link href="/app/operations" className="text-sm font-medium text-graphite-900 hover:underline">{t("allOps")} →</Link>
+          <Link href="/app/operations" className="inline-flex min-h-11 items-center text-sm font-medium text-graphite-900 hover:underline">{t("allOps")} →</Link>
         </div>
         {recent.loading && !recent.data ? (
           <div className="mt-3 space-y-2">{[0, 1, 2].map((i) => <Skeleton key={i} className="h-12" />)}</div>

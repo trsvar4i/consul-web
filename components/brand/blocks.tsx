@@ -34,16 +34,18 @@ export function AlertItem({ level, text, action }: { level: "info" | "warning" |
   const Icon = level === "error" ? CircleAlert : level === "warning" ? AlertTriangle : Info;
   const tone = level === "error" ? "text-error bg-error-50" : level === "warning" ? "text-warning bg-warning-50" : "text-gray-700 bg-mist";
   return (
-    <div className="flex items-start gap-3 py-3">
+    <div className="flex items-start gap-3 py-3.5">
       <span className={cn("mt-0.5 grid size-8 shrink-0 place-items-center rounded-full", tone)}>
         <Icon size={18} aria-hidden />
       </span>
-      <p className="flex-1 text-[15px] leading-snug text-graphite-900 pt-1">{text}</p>
-      {action && (
-        <ButtonLink href={action.href} variant="secondary" size="sm" className="shrink-0">
-          {action.label}
-        </ButtonLink>
-      )}
+      <div className="flex min-w-0 flex-1 flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+        <p className="pt-1 text-[15px] leading-snug text-graphite-900">{text}</p>
+        {action && (
+          <ButtonLink href={action.href} variant="secondary" size="sm" className="shrink-0 self-start">
+            {action.label}
+          </ButtonLink>
+        )}
+      </div>
     </div>
   );
 }

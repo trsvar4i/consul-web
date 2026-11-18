@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Check, Landmark, Loader2, MessageCircle, Wallet } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
@@ -17,6 +17,15 @@ export function Subscribe() {
   const t = useTranslations("plans");
   const router = useRouter();
   const [current, setCurrent] = useState<PlanId | null>(null);
+  const rail = useRef<HTMLDivElement>(null);
+  const [slide, setSlide] = useState(1);
+  // телефон: сразу показать выделенную подписку «Бизнес»
+  useEffect(() => {
+    const r = rail.current;
+    if (!r || window.innerWidth >= 1024) return;
+    const mid = r.children[1] as HTMLElement | undefined;
+    if (mid) r.scrollLeft = mid.offsetLeft - (r.clientWidth - mid.clientWidth) / 2;
+  }, []);
   const [busy, setBusy] = useState<PlanId | null>(null);
   const [done, setDone] = useState<PlanId | null>(null);
 
@@ -49,13 +58,13 @@ export function Subscribe() {
           <p className="mt-4 text-lg text-ondark">{t("sub")}</p>
         </Reveal>
 
-        <div className="mt-12 grid items-stretch gap-5 lg:grid-cols-3">
+        <div ref={rail} onScroll={(e) => { const r = e.currentTarget; const w = (r.children[0] as HTMLElement | undefined)?.clientWidth ?? 1; setSlide(Math.max(0, Math.min(2, Math.round(r.scrollLeft / (w + 16))))); }} className="-mx-4 mt-10 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] lg:mx-0 lg:mt-12 lg:grid lg:snap-none lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:px-0">
           {PLANS.map((p, i) => {
             const Icon = ICON[p];
             const featured = p === "business";
             const features = t.raw(`${p}_f`) as string[];
             return (
-              <Reveal key={p} delay={i * 140} className={cn(featured && "lg:-translate-y-4")}>
+              <Reveal key={p} delay={i * 140} className={cn("w-[86%] shrink-0 snap-center sm:w-[60%] lg:w-auto", featured && "lg:-translate-y-4")}>
                 <div className={cn("h-full rounded-[28px]", featured && "beam [--beam-s:5s]")}>
                   <Spotlight
                     color={featured ? "rgba(224,86,109,0.25)" : "rgba(255,255,255,0.08)"}
@@ -103,7 +112,10 @@ export function Subscribe() {
             );
           })}
         </div>
-        <p className="mt-10 text-center text-sm text-ondark">{t("note")}</p>
+        <div className="mt-2 flex justify-center gap-2 lg:hidden" aria-hidden>
+          {PLANS.map((p, i) => <span key={p} className={cn("h-1.5 rounded-full transition-all duration-300", i === slide ? "w-6 bg-brand-400" : "w-1.5 bg-white/25")} />)}
+        </div>
+        <p className="mt-8 text-center text-sm text-ondark lg:mt-10">{t("note")}</p>
       </main>
     </div>
   );

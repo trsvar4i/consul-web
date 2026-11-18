@@ -48,7 +48,7 @@ export const Composer = forwardRef<{ focus: () => void }, { className?: string }
           }}
           placeholder={t("placeholder")}
           aria-label={t("placeholder")}
-          className="max-h-[114px] min-h-10 flex-1 resize-none bg-transparent px-2.5 py-2 text-[15px] leading-6 text-graphite-900 placeholder:text-gray-500 focus:outline-none"
+          className="max-h-[114px] min-h-10 flex-1 resize-none bg-transparent px-2.5 py-2 text-base leading-6 text-graphite-900 placeholder:text-gray-500 focus:outline-none"
         />
         {busy ? (
           <button type="button" onClick={stop} aria-label={t("stop")} title={t("stop")}

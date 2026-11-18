@@ -12,7 +12,7 @@ import { cn } from "../ui/primitives";
 /** Плавающая кнопка + всплывающая панель. На /chat не показывается. */
 export function ChatWidget() {
   const pathname = usePathname();
-  if (pathname === "/chat") return null;
+  if (pathname === "/chat" || pathname === "/onboarding") return null;
   return <Widget inApp={pathname.startsWith("/app") || pathname === "/onboarding"} isTool={pathname.startsWith("/tools/")} />;
 }
 
@@ -44,7 +44,8 @@ function Widget({ inApp, isTool }: { inApp: boolean; isTool: boolean }) {
     if (a.isOpen) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- hide hint when panel opens
       setHint(false);
-      setTimeout(() => composer.current?.focus(), 50);
+      // на телефоне не открываем клавиатуру сами — сначала видны подсказки
+      if (window.matchMedia("(pointer: fine)").matches) setTimeout(() => composer.current?.focus(), 50);
     } else if (wasOpen.current) {
       fabRef.current?.focus();
     }
@@ -70,7 +71,7 @@ function Widget({ inApp, isTool }: { inApp: boolean; isTool: boolean }) {
   return (
     <>
       {!a.isOpen && (
-        <div className={cn("fixed right-5 z-50", inApp ? "bottom-[88px] lg:bottom-5" : "bottom-5")}>
+        <div className={cn("fixed right-5 z-50", inApp ? "hidden lg:block lg:bottom-5" : "bottom-5")}>
           {hint && (
             <div className="absolute bottom-[68px] right-0 flex w-56 items-start gap-2 rounded-card border border-gray-200 bg-white p-3 text-sm text-graphite-900 shadow-soft animate-rise">
               <button className="flex-1 text-left" onClick={() => a.open()}>{t("hint")}</button>
