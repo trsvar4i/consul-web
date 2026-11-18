@@ -5,7 +5,7 @@ import { Logo, SvgDefs } from "@/components/Icons";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params, t = translator(isLang(lang) ? lang : "uz");
-  return { title: t("Consul — maʼlumot") };
+  return { title: t("Consul — maxfiylik va rozilik") };
 }
 
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   return <div className="legal"><SvgDefs />
     <header className="nav"><div className="w"><Link className="logo" href="/"><Logo size={30} />{t("Consul")}</Link><Link href="/kirish" style={{ fontWeight: 600 }}>{t("Kirish")}</Link></div></header>
     <main className="w">
- <h1>{t("Maʼlumot")}</h1>
+ <h1>{t("Maxfiylik va rozilik")}</h1><p className="upd">{t("Qisqa va oddiy tilda. Loyiha matni — yurist tekshiruvidan oʻtishi kerak.")}</p>
  <nav className="toc"><a href="#maxfiylik">{t("Maxfiylik")}</a><a href="#rozilik">{t("Rozilik")}</a><a href="#statistika">{t("Anonim statistika")}</a><a href="#ochirish">{t("Oʻchirish")}</a><a href="#aloqa">{t("Aloqa")}</a></nav>
 
  <section id="maxfiylik"><h2>{t("Maxfiylik")}</h2>

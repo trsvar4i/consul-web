@@ -1,7 +1,5 @@
 /** Russian UI strings. Keys are the Uzbek source strings (gettext style). Generated, then edited by hand. */
 export const RU: Record<string, string> = {
-  "Maʼlumot": "Информация",
-  "Consul — maʼlumot": "Consul — информация",
   "xarajat": "Расход",
   "ish haqi": "Зарплата",
   "Profil": "Профиль",

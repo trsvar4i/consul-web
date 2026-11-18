@@ -6,8 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 
 export function initLanding(root: HTMLElement, tr: (s: string) => string = s => s): () => void {
-let lenis: any = null, tick: any = null;
-let mm: gsap.MatchMedia | null = null;
+let lenis: any = null, tick: any = null, mm: any = null;
 
 root.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => root.querySelector('.mobile-menu')?.removeAttribute('open')));
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -75,13 +74,11 @@ gsap.to('#scene', {y:-80, ease:'none', scrollTrigger:{trigger:'.hero-s', start:'
 gsap.to('.h-in', {opacity:.25, y:-40, ease:'none', scrollTrigger:{trigger:'.hero-s', start:'top top', end:'bottom top', scrub:true}});
 
 mm = gsap.matchMedia();
-mm.add({ wide: '(min-width: 640px)', narrow: '(max-width: 639.98px)' }, ({ conditions }) => {
- const wide = conditions?.wide;
+mm.add('(min-width: 821px)', () => {
  /* steps: pinned, scrubbed story */
  const sts = $$('.st'), sN = $('#stN'), sNum = $('#sNum');
  const obj = {v:4200000};
- const stepsPin = wide ? '.steps-pin' : '.stage';
- const tl = gsap.timeline({scrollTrigger:{trigger:stepsPin, start:wide ? 'top top' : 'center center+=32', end:'+=150%', pin:true, pinSpacing:true, scrub:.45,
+ const tl = gsap.timeline({scrollTrigger:{trigger:'#steps', start:'top top', end:'+=130%', pin:'.steps-pin', scrub:.6,
    onUpdate:(s: any) => { const k = Math.min(2, Math.floor(s.progress*3)); sts.forEach((e,j)=>e.classList.toggle('on', j===k)); sN.textContent = '0'+(k+1); }}});
  tl.from('#sBub > *', {x:-24, opacity:0, duration:.5, stagger:.18})
    .to({}, {duration:.4})
@@ -96,33 +93,21 @@ mm.add({ wide: '(min-width: 640px)', narrow: '(max-width: 639.98px)' }, ({ condi
    .to({}, {duration:.4});
 
  /* features: pinned list synced to phone screens */
- const features = root.querySelectorAll('.fi');
- const bars = root.querySelectorAll('.fi .bar i');
- const slides = $('.phone-slides');
- const badgeLabel = $('#fxL'), badgeValue = $('#fxV');
- const badges = [[tr('Bank uchun hisobot'),'PDF'],[tr('Keyingi toʻlov'),tr('15-dekabr')],[tr('Tekshirildi'),tr('12 / 12 raqam ✓')],[tr('Oloyda arzonroq'),'−3%']];
- const hold = .65, slide = .55;
- let active = 0;
- const showFeature = (next: number) => {
-   if (next === active) return;
-   features[active].classList.remove('on');
-   features[next].classList.add('on');
-   [badgeLabel.textContent, badgeValue.textContent] = badges[next];
-   active = next;
- };
- const phonePin = wide ? '.feat-pin' : '#imk .pw';
- const ft = gsap.timeline({scrollTrigger:{trigger:phonePin, start:wide ? 'top top' : 'center center+=32', end:'+=240%', pin:true, pinSpacing:true, scrub:.45}});
- bars.forEach((bar, index) => {
-   ft.to(bar, {scaleX:1, duration:hold, ease:'none'});
-   if (index < bars.length - 1) {
-     ft.to(slides, {yPercent:-100 * (index + 1), duration:slide, ease:'sine.inOut'});
-   }
- });
- ft.eventCallback('onUpdate', () => {
-   // Switch labels when the new slide passes the middle of the phone.
-   showFeature(Math.min(features.length - 1, Math.floor((ft.time() + slide / 2) / (hold + slide))));
- });
- return () => showFeature(0);
+ const fis = $$('.fi'), scr = $$('.scr'), bars = $$('.fi .bar i');
+ const FX = [[tr('Bank uchun hisobot'),'PDF'],[tr('Keyingi toʻlov'),tr('15-dekabr')],[tr('Tekshirildi'),tr('12 / 12 raqam ✓')],[tr('Oloyda arzonroq'),'−3%']]; let fk = 0;
+ const setFx = (k: any) => { if (k === fk) return; fk = k; gsap.to('#fx', {y:10, opacity:0, duration:.18, onComplete:()=>{ $('#fxL').textContent = FX[k][0]; $('#fxV').textContent = FX[k][1]; gsap.to('#fx', {y:0, opacity:1, duration:.3}); }}); };
+ gsap.set(scr.slice(1), {yPercent:100});
+ const ft = gsap.timeline({scrollTrigger:{trigger:'#imk', start:'top top', end:'+=180%', pin:'.feat-pin', scrub:.6,
+   onUpdate:(s: any) => { const k = Math.min(3, Math.floor(s.progress*4)); fis.forEach((e,j)=>e.classList.toggle('on', j===k)); setFx(k); }}});
+ for (let k=0;k<4;k++){
+   ft.fromTo(bars[k], {scaleX:0}, {scaleX:1, duration:1, ease:'none'});
+   if (k<3) ft.to(scr[k], {yPercent:-18, scale:.92, opacity:0, duration:.5, ease:'power2.inOut'}, '-=.25')
+              .to(scr[k+1], {yPercent:0, duration:.5, ease:'power2.inOut'}, '<');
+ }
+});
+mm.add('(max-width: 820px)', () => {
+ gsap.from('#sAdv,#sBub', {y:30, opacity:0, stagger:.2, scrollTrigger:{trigger:'.stage', start:'top 75%'}});
+ $$('.scr').forEach((s,k)=>{ if(k) s.style.display='none'; });
 });
 
 /* section headings */

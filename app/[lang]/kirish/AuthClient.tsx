@@ -148,7 +148,7 @@ export default function AuthClient({ register = false }: { register?: boolean })
     <div className="fc f3">{t("Xavfsiz kredit")}<b className="g">{t("34 mln gacha")}</b></div>
     <div className="fc f4">{t("Oʻrik qoqi · Oloy")}<b className="r">−3%</b></div>
       </div>
-      <div className="ft"><Link href="/maxfiylik">{t("Maʼlumot")}</Link></div>
+      <div className="ft"><Link href="/maxfiylik#maxfiylik">{t("Maxfiylik")}</Link><Link href="/maxfiylik#rozilik">{t("Rozilik")}</Link><Link href="/maxfiylik#aloqa">{t("Yordam")}</Link></div>
     </div>
   </div>;
 }

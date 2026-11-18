@@ -91,7 +91,6 @@ export default function Landing() { const t = useT();
    <svg className="wm" viewBox="0 0 240 240" aria-hidden="true"><rect x="20" y="20" width="130" height="130" rx="26" fill="#F7E4E8"/><rect x="90" y="90" width="130" height="130" rx="26" fill="#FBEEF1"/></svg>
    <div className="fx" id="fx"><span id="fxL">{t("Bank uchun hisobot")}</span><b id="fxV">{t("PDF")}</b></div>
   <div className="phone"><div className="isl2"></div>
-  <div className="phone-screen"><div className="phone-window"><div className="phone-slides">
    <div className="scr"><div className="ph-h"><span>{t("Kredit")}</span><span style={{color:'var(--mut)'}}>×</span></div>
     <div className="card-d"><p className="cap">{t("Xavfsiz kredit")}</p><p className="big num">34 000 000</p><p className="was">{t("oyiga ~1 800 000 · 24 oy · 24% namuna")}</p></div>
     <div className="row" style={{'--c':'#1F7A4D'}}><div>{t("Toʻlov yuki")}<small>{t("foydaning 30%")}</small></div><b>✓</b></div>
@@ -109,7 +108,6 @@ export default function Landing() { const t = useT();
     <div className="card-d"><p className="cap">{t("Oʻrik qoqi · 1 kg")}</p><p className="big num">+12%</p><p className="was">{t("siz Chorsu medianasidan qimmat olyapsiz")}</p>
      <div className="bars"><i style={{height:'60%'}}></i><i style={{height:'64%'}}></i><i style={{height:'58%'}}></i><i style={{height:'62%'}}></i><i className="p" style={{height:'74%'}}></i><i style={{height:'57%'}}></i></div></div>
     <div className="row" style={{'--c':'#1F7A4D'}}><div>{t("Oloy bozori")}<small>{t("43 500 soʻm")}</small></div><b>−3%</b></div></div>
-  </div></div></div>
   </div>
   </div>
  </div>
