@@ -1,66 +1,23 @@
-import type { Locale } from "./types";
+/** Number formatting for Uzbek UI: thin groups with plain spaces, real minus sign. */
+export const fmt = (v: number): string =>
+  (v < 0 ? "−" : "") + Math.round(Math.abs(v)).toLocaleString("ru-RU").replace(/[   ,]/g, " ");
 
-const nf = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 });
-
-/** "1 250 000" — без валюты, с обычными пробелами */
-export const formatNum = (n: number) => nf.format(Math.round(n)).replace(/[  ,]/g, " ");
-
-/** "1 250 000 soʻm" / "1 250 000 сум" */
-export const formatSom = (n: number, locale: Locale | string) =>
-  (n < 0 ? "−" : "") + formatNum(Math.abs(n)) + (locale === "uz" ? " soʻm" : " сум");
-
-export const currency = (locale: Locale | string) => (locale === "uz" ? "soʻm" : "сум");
-
-/** 4 200 000 → "4,2 mln" / "4,2 млн" */
-export const formatShort = (n: number, locale: Locale | string) => {
-  const abs = Math.abs(n);
-  const sign = n < 0 ? "−" : "";
-  const fx = (v: number) => v.toFixed(1).replace(".0", "").replace(".", ",");
-  if (abs >= 1e9) return sign + fx(abs / 1e9) + (locale === "uz" ? " mlrd" : " млрд");
-  if (abs >= 1e6) return sign + fx(abs / 1e6) + (locale === "uz" ? " mln" : " млн");
-  if (abs >= 1e3) return sign + Math.round(abs / 1e3) + (locale === "uz" ? " ming" : " тыс");
-  return sign + Math.round(abs);
+/** 12 000 000 -> "12 mln", 1 500 000 -> "1,5 mln". */
+export const mln = (v: number): string => {
+  const a = Math.abs(v) / 1e6;
+  const n = a >= 10 ? Math.round(a) : Math.round(a * 10) / 10;
+  return (v < 0 ? "−" : "") + String(n).replace(".", ",") + " mln";
 };
 
-const MONTHS: Record<string, string[]> = {
-  uz: ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"],
-  ru: ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"],
-};
-const MONTHS_NOM: Record<string, string[]> = {
-  uz: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
-  ru: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+export const pct = (v: number): string => (Math.round(v * 10) / 10).toString().replace(".", ",") + "%";
+
+/** Reads digits (and one decimal separator) from a user-typed money string. */
+export const parseNum = (s: string): number => +s.replace(/[^\d.,]/g, "").replace(",", ".") || 0;
+
+/** Re-formats a money input while typing: "1200000" -> "1 200 000". */
+export const formatInput = (s: string): string => {
+  const d = s.replace(/\D/g, "");
+  return d ? fmt(+d) : "";
 };
 
-/** "2026-10-05" → "5 oktabr" / "5 октября" */
-export const formatDate = (iso: string, locale: Locale | string) => {
-  const [, m, d] = iso.slice(0, 10).split("-").map(Number);
-  return `${d} ${MONTHS[locale === "uz" ? "uz" : "ru"][m - 1]}`;
-};
-export const formatDateFull = (iso: string, locale: Locale | string) => `${formatDate(iso, locale)} ${iso.slice(0, 4)}`;
-const MONTHS_IN: Record<string, string[]> = {
-  uz: MONTHS_NOM.uz,
-  ru: ["январе", "феврале", "марте", "апреле", "мае", "июне", "июле", "августе", "сентябре", "октябре", "ноябре", "декабре"],
-};
-/** «в мае» / «May oyida» — форма месяца для фразы «в …» */
-export const monthNameIn = (monthIdx0: number, locale: Locale | string) => MONTHS_IN[locale === "uz" ? "uz" : "ru"][monthIdx0];
-export const monthName = (monthIdx0: number, locale: Locale | string) => MONTHS_NOM[locale === "uz" ? "uz" : "ru"][monthIdx0];
-export const formatMonth = (ym: string, locale: Locale | string) => {
-  const [y, m] = ym.split("-").map(Number);
-  return `${monthName(m - 1, locale)} ${y}`;
-};
-
-/** "50 000 000" → 50000000 */
-export const parseMoney = (s: string) => {
-  const n = Number(s.replace(/[^\d]/g, ""));
-  return Number.isFinite(n) ? n : 0;
-};
-
-/** Демо-строки вида «uz / ru» → нужная половина */
-export const pickLang = (s: string, locale: Locale | string) => {
-  if (!s.includes(" / ")) return s;
-  const [uz, ru] = s.split(" / ");
-  return locale === "uz" ? uz : ru;
-};
-
-/** Uzbek apostrophe normalisation for search: ' ‘ ’ ` ʼ → ʻ */
-export const normalizeUz = (s: string) => s.toLowerCase().replace(/['‘’`ʼ]/g, "ʻ").trim();
+export const roundK = (v: number): number => Math.round(v / 1000) * 1000;
