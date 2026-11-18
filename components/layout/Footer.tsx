@@ -4,7 +4,7 @@ import { Logo } from "../brand/Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { FooterBand } from "./FooterBand";
 
-export const GITHUB_URL = "https://github.com/";
+export const GITHUB_URL = "https://github.com/trsvar4i/consul-web";
 
 export async function Footer() {
   const t = await getTranslations("footer");
